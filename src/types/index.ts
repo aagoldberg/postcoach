@@ -19,6 +19,7 @@ export interface Cast {
   timestamp: Date;
   parentHash: string | null;
   parentUrl: string | null;
+  parentAuthorFid: number | null;
   embeds: CastEmbed[];
   mentions: number[];
   mentionsPositions: number[];
@@ -141,8 +142,9 @@ export interface BriefInsight {
 export interface BriefExperiment {
   title: string;
   description: string;
-  templateCast: string;
-  rationale: string;
+  format: string; // Structural pattern e.g., "[Hot take on X] + [question]"
+  formatBreakdown: string[]; // Explains each component of the format
+  rationale: string; // Data-backed reason this works
 }
 
 // ============= Full Analysis Result =============

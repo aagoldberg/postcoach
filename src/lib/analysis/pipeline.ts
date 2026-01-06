@@ -127,10 +127,9 @@ export async function runAnalysisPipeline(
   const userReplies = await provider.getUserReplies(user.fid, 100);
   const repliedToFids = new Set<number>();
   for (const reply of userReplies) {
-    // The parent cast's author would be who they replied to
-    // For simplicity, we're tracking FIDs from replies - this is a proxy
-    if (reply.mentions.length > 0) {
-      reply.mentions.forEach((fid) => repliedToFids.add(fid));
+    // Track the parent cast's author (who they replied to)
+    if (reply.parentAuthorFid) {
+      repliedToFids.add(reply.parentAuthorFid);
     }
   }
 

@@ -213,10 +213,14 @@ export async function generateWeeklyBrief(
         value: `${(userMetrics.replyRate * 100).toFixed(0)}%`,
       },
       experiment: {
-        title: 'Ask Questions',
-        description: 'Try ending your next few posts with genuine questions.',
-        templateCast: "What's something you learned this week that changed how you think?",
-        rationale: 'Questions invite responses and boost reply rates.',
+        title: 'Add Conversation Hooks',
+        description: 'End posts with genuine questions that invite specific responses.',
+        format: '[Your observation or take] → [Specific question to your audience]',
+        formatBreakdown: [
+          'Lead with your perspective—gives people something to react to',
+          'End with a question that has multiple valid answers—lowers barrier to reply',
+        ],
+        rationale: `Questions drive replies, and your reply rate is currently ${(userMetrics.replyRate * 100).toFixed(0)}%.`,
       },
     };
   }

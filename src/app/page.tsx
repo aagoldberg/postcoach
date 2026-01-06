@@ -1,10 +1,11 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import type { AnalysisResult } from '@/types';
+import { LoadingProgress } from '@/components/ui/Progress';
+import { Button } from '@/components/ui/Button';
 import { AnalysisForm } from '@/components/AnalysisForm';
 import { AnalysisResults } from '@/components/AnalysisResults';
-import { LoadingProgress } from '@/components/ui';
+import type { AnalysisResult } from '@/types';
 
 type AppState = 'idle' | 'loading' | 'success' | 'error';
 
@@ -14,51 +15,47 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [progress, setProgress] = useState({ stage: '', value: 0 });
 
-  const runAnalysis = useCallback(async (identifier: string) => {
+  const runAnalysis = useCallback(async (identifier: string, refresh = false) => {
     setState('loading');
     setError(null);
-    setProgress({ stage: 'Starting analysis...', value: 5 });
+    setProgress({ stage: 'Establishing neural link...', value: 5 });
 
     try {
-      // Determine if it's a FID (number) or username
       const isNumeric = /^\d+$/.test(identifier);
       const queryParam = isNumeric ? `fid=${identifier}` : `username=${identifier}`;
+      const refreshParam = refresh ? '&refresh=true' : '';
 
-      // Simulate progress stages while waiting for the API
       const progressInterval = setInterval(() => {
         setProgress((prev) => {
           if (prev.value >= 90) return prev;
-
           const stages = [
-            { stage: 'Fetching user profile...', value: 15 },
-            { stage: 'Fetching recent casts...', value: 30 },
-            { stage: 'Computing engagement metrics...', value: 45 },
-            { stage: 'Analyzing content features...', value: 55 },
-            { stage: 'Identifying themes...', value: 65 },
-            { stage: 'Generating personalized feedback...', value: 80 },
-            { stage: 'Creating weekly brief...', value: 90 },
+            { stage: 'Accessing Farcaster node...', value: 15 },
+            { stage: 'Downloading history...', value: 30 },
+            { stage: 'Calculating engagement...', value: 45 },
+            { stage: 'Running NLP models...', value: 55 },
+            { stage: 'Synthesizing themes...', value: 65 },
+            { stage: 'Generating advice...', value: 80 },
+            { stage: 'Finalizing briefing...', value: 90 },
           ];
-
           const nextStage = stages.find((s) => s.value > prev.value);
           return nextStage || prev;
         });
       }, 2000);
 
-      const response = await fetch(`/api/analyze?${queryParam}`);
+      const response = await fetch(`/api/analyze?${queryParam}${refreshParam}`);
       clearInterval(progressInterval);
-
       const data = await response.json();
 
       if (!response.ok || !data.success) {
         throw new Error(data.error || 'Analysis failed');
       }
 
-      setProgress({ stage: 'Done!', value: 100 });
+      setProgress({ stage: 'Complete.', value: 100 });
       setResult(data.data);
       setState('success');
     } catch (err) {
       console.error('Analysis error:', err);
-      setError(err instanceof Error ? err.message : 'Something went wrong');
+      setError(err instanceof Error ? err.message : 'System Error');
       setState('error');
     }
   }, []);
@@ -70,126 +67,91 @@ export default function Home() {
     setProgress({ stage: '', value: 0 });
   }, []);
 
+  const handleRefresh = useCallback(() => {
+    if (result?.user?.username) {
+      runAnalysis(result.user.username, true);
+    }
+  }, [result, runAnalysis]);
+
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
-      <main className="container mx-auto px-4 py-8 max-w-4xl">
-        {/* Header - Always visible */}
+    <div className="min-h-screen bg-[#f2f5f3] text-[#1a1f2e] selection:bg-stone-200 font-sans">
+      <main className="container mx-auto px-4 py-24 max-w-6xl">
         {state === 'idle' && (
-          <div className="text-center py-16">
-            <div className="mb-8">
-              <h1 className="text-4xl font-bold text-zinc-900 dark:text-zinc-100 mb-4">
-                PostCoach
-              </h1>
-              <p className="text-xl text-zinc-600 dark:text-zinc-400 max-w-md mx-auto">
-                AI-powered feedback for your Farcaster posts. Understand what works and grow your influence.
-              </p>
-            </div>
-
-            <AnalysisForm onSubmit={runAnalysis} isLoading={false} />
-
-            {/* Features */}
-            <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
-              <div className="bg-white dark:bg-zinc-900 rounded-xl p-6 border border-zinc-200 dark:border-zinc-800">
-                <div className="w-10 h-10 rounded-lg bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center mb-4">
-                  <svg className="w-5 h-5 text-violet-600 dark:text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                  </svg>
+          <div className="flex flex-col items-center justify-center py-32 animate-in fade-in slide-in-from-bottom-12 duration-1000">
+            <div className="text-center space-y-16 max-w-3xl mx-auto">
+              <div className="space-y-8">
+                <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white border border-stone-200 shadow-sm mb-4">
+                  <span className="w-2 h-2 rounded-full bg-[#4b5e54] animate-pulse"></span>
+                  <span className="text-[10px] font-bold text-stone-400 uppercase tracking-[0.3em]">Farcaster Intelligence Report</span>
                 </div>
-                <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 mb-2">
-                  Post-Level Feedback
-                </h3>
-                <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                  Understand why each post performed the way it did with specific, actionable insights.
+                <h1 className="text-8xl md:text-9xl font-black tracking-tighter text-[#1a1f2e] serif-heading italic">
+                  PostCoach
+                </h1>
+                <p className="text-2xl text-stone-400 font-medium leading-relaxed max-w-xl mx-auto">
+                  High-resolution content auditing for growth-oriented creators.
                 </p>
               </div>
 
-              <div className="bg-white dark:bg-zinc-900 rounded-xl p-6 border border-zinc-200 dark:border-zinc-800">
-                <div className="w-10 h-10 rounded-lg bg-green-100 dark:bg-green-900/30 flex items-center justify-center mb-4">
-                  <svg className="w-5 h-5 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                  </svg>
-                </div>
-                <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 mb-2">
-                  Weekly Brief
-                </h3>
-                <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                  Get a shareable summary with your win, weakness, and a specific experiment to try.
-                </p>
+              <div className="w-full max-w-lg mx-auto pt-8">
+                <AnalysisForm onSubmit={runAnalysis} isLoading={false} />
               </div>
 
-              <div className="bg-white dark:bg-zinc-900 rounded-xl p-6 border border-zinc-200 dark:border-zinc-800">
-                <div className="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mb-4">
-                  <svg className="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-                  </svg>
+              <div className="pt-32 flex items-center justify-center gap-16 text-[10px] font-bold text-stone-300 uppercase tracking-[0.4em]">
+                <div className="flex flex-col items-center gap-4">
+                  <div className="w-12 h-12 rounded-[1.5rem] bg-white border border-stone-100 shadow-sm flex items-center justify-center text-[#1a1f2e]">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+                  </div>
+                  <span>Audit</span>
                 </div>
-                <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 mb-2">
-                  Theme Analysis
-                </h3>
-                <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                  Discover which topics resonate most with your audience and double down.
-                </p>
+                <div className="flex flex-col items-center gap-4">
+                  <div className="w-12 h-12 rounded-[1.5rem] bg-white border border-stone-100 shadow-sm flex items-center justify-center text-[#1a1f2e]">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" /></svg>
+                  </div>
+                  <span>Themes</span>
+                </div>
+                <div className="flex flex-col items-center gap-4">
+                  <div className="w-12 h-12 rounded-[1.5rem] bg-white border border-stone-100 shadow-sm flex items-center justify-center text-[#1a1f2e]">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
+                  </div>
+                  <span>Brief</span>
+                </div>
               </div>
             </div>
           </div>
         )}
 
-        {/* Loading State */}
         {state === 'loading' && (
-          <div className="flex flex-col items-center justify-center py-32">
-            <div className="mb-8">
-              <div className="w-16 h-16 rounded-full bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center animate-pulse">
-                <svg className="w-8 h-8 text-violet-600 dark:text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                </svg>
-              </div>
-            </div>
-            <h2 className="text-xl font-semibold text-zinc-900 dark:text-zinc-100 mb-6">
-              Analyzing your Farcaster presence...
-            </h2>
+          <div className="flex-1 flex flex-col items-center justify-center py-64 animate-in fade-in duration-500">
             <LoadingProgress stage={progress.stage} progress={progress.value} />
           </div>
         )}
 
-        {/* Error State */}
         {state === 'error' && (
-          <div className="flex flex-col items-center justify-center py-32">
-            <div className="mb-8">
-              <div className="w-16 h-16 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
-                <svg className="w-8 h-8 text-red-600 dark:text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          <div className="flex-1 flex flex-col items-center justify-center py-64">
+             <div className="max-w-xl text-center bg-white p-20 rounded-[3.5rem] shadow-2xl">
+              <div className="w-24 h-24 rounded-[2rem] bg-rose-50 flex items-center justify-center mx-auto mb-10">
+                <svg className="w-10 h-10 text-rose-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                 </svg>
               </div>
+              <h2 className="text-4xl font-black text-[#1a1f2e] mb-4 serif-heading italic">Audit Interrupted</h2>
+              <p className="text-stone-400 mb-12 text-lg font-medium leading-relaxed">{error}</p>
+              <Button
+                onClick={handleReset}
+                variant="primary"
+                size="lg"
+                className="w-full py-6 rounded-3xl"
+              >
+                Return to Lab
+              </Button>
             </div>
-            <h2 className="text-xl font-semibold text-zinc-900 dark:text-zinc-100 mb-2">
-              Oops, something went wrong
-            </h2>
-            <p className="text-zinc-600 dark:text-zinc-400 mb-6 text-center max-w-md">
-              {error}
-            </p>
-            <button
-              onClick={handleReset}
-              className="text-violet-600 dark:text-violet-400 font-medium hover:underline"
-            >
-              Try again
-            </button>
           </div>
         )}
 
-        {/* Success State - Results */}
         {state === 'success' && result && (
-          <AnalysisResults result={result} onReset={handleReset} />
+          <AnalysisResults result={result} onReset={handleReset} onRefresh={handleRefresh} />
         )}
       </main>
-
-      {/* Footer */}
-      <footer className="border-t border-zinc-200 dark:border-zinc-800 py-6 mt-16">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-sm text-zinc-500 dark:text-zinc-400">
-            PostCoach - Farcaster Influence Coach
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }

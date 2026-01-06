@@ -10,9 +10,10 @@ import { Button } from '@/components/ui';
 interface AnalysisResultsProps {
   result: AnalysisResult;
   onReset: () => void;
+  onRefresh?: () => void;
 }
 
-export function AnalysisResults({ result, onReset }: AnalysisResultsProps) {
+export function AnalysisResults({ result, onReset, onRefresh }: AnalysisResultsProps) {
   const { user, userMetrics, themes, topCasts, bottomCasts, weeklyBrief } = result;
 
   // Get top theme for scoreboard
@@ -30,12 +31,12 @@ export function AnalysisResults({ result, onReset }: AnalysisResultsProps) {
       const dataUrl = await toPng(element, {
         quality: 1,
         pixelRatio: 2,
-        backgroundColor: '#ffffff',
+        backgroundColor: '#f2f5f3',
       });
 
       // Create download link
       const link = document.createElement('a');
-      link.download = `postcoach-brief-${user.username}.png`;
+      link.download = `postcoach-report-${user.username}.png`;
       link.href = dataUrl;
       link.click();
     } catch (error) {
@@ -45,51 +46,69 @@ export function AnalysisResults({ result, onReset }: AnalysisResultsProps) {
   }, [user.username]);
 
   return (
-    <div className="space-y-8">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <Button variant="outline" size="sm" onClick={onReset}>
-          ← Analyze Another
+    <div className="space-y-12 animate-in fade-in duration-1000">
+      {/* Navigation Bar */}
+      <div className="flex items-center justify-between py-6 border-b border-stone-200/60 mb-8">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={onReset}
+        >
+          ← New Analysis
         </Button>
-        {result.cached && (
-          <span className="text-xs text-zinc-500 dark:text-zinc-400">
-            Cached result • Generated {new Date(result.generatedAt).toLocaleString()}
+        <div className="flex items-center gap-4">
+          {result.cached && onRefresh && (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={onRefresh}
+            >
+              ↻ Refresh
+            </Button>
+          )}
+          <span className="text-[10px] font-bold text-stone-400 uppercase tracking-[0.3em]">
+            {result.cached ? 'Cached' : 'Fresh'} • #{user.fid}
           </span>
-        )}
+        </div>
       </div>
 
-      {/* User Header */}
-      <UserHeader user={user} />
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Left Column (User & Scoreboard) */}
+        <div className="lg:col-span-4 space-y-6">
+          <UserHeader user={user} />
+          <Scoreboard metrics={userMetrics} topTheme={topTheme} />
+        </div>
 
-      {/* Scoreboard */}
-      <Scoreboard metrics={userMetrics} topTheme={topTheme} />
+        {/* Right Column (Weekly Brief & Deep Dives) */}
+        <div className="lg:col-span-8 space-y-12">
+           <WeeklyBrief
+            brief={weeklyBrief}
+            username={user.username}
+            onShareImage={handleShareImage}
+          />
 
-      {/* Top Posts */}
-      {topCasts.length > 0 && (
-        <FeedbackSection
-          title="Top Performers"
-          description="Your posts that sparked the most engagement"
-          analyses={topCasts}
-          type="top"
-        />
-      )}
+          {/* Deep Dives */}
+          <div className="space-y-12">
+            {topCasts.length > 0 && (
+              <FeedbackSection
+                title="Success Vectors"
+                description="High-engagement patterns identified in recent activity"
+                analyses={topCasts}
+                type="top"
+              />
+            )}
 
-      {/* Bottom Posts */}
-      {bottomCasts.length > 0 && (
-        <FeedbackSection
-          title="Underperformers"
-          description="Posts that didn't hit their potential - here's why"
-          analyses={bottomCasts}
-          type="bottom"
-        />
-      )}
-
-      {/* Weekly Brief */}
-      <WeeklyBrief
-        brief={weeklyBrief}
-        username={user.username}
-        onShareImage={handleShareImage}
-      />
+            {bottomCasts.length > 0 && (
+              <FeedbackSection
+                title="Friction Points"
+                description="Content that underperformed relative to audience baseline"
+                analyses={bottomCasts}
+                type="bottom"
+              />
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

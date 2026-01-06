@@ -21,6 +21,7 @@ export interface NeynarCast {
   timestamp: string;
   parent_hash: string | null;
   parent_url: string | null;
+  parent_author?: { fid: number } | null;
   embeds: Array<{
     url?: string;
     cast_id?: { fid: number; hash: string };

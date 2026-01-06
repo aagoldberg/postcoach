@@ -31,9 +31,9 @@ export function Progress({
           )}
         </div>
       )}
-      <div className="w-full h-2 bg-zinc-200 dark:bg-zinc-700 rounded-full overflow-hidden">
+      <div className="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden">
         <div
-          className="h-full bg-gradient-to-r from-violet-500 to-purple-600 rounded-full transition-all duration-500 ease-out"
+          className="h-full bg-[#4f46e5] rounded-full transition-all duration-500 ease-out"
           style={{ width: `${percentage}%` }}
         />
       </div>
@@ -43,11 +43,16 @@ export function Progress({
 
 export function LoadingProgress({ stage, progress }: { stage: string; progress: number }) {
   return (
-    <div className="w-full max-w-md mx-auto">
-      <Progress value={progress} showPercentage />
-      <p className="text-center text-sm text-zinc-600 dark:text-zinc-400 mt-3 animate-pulse">
-        {stage}
-      </p>
+    <div className="w-full max-w-lg mx-auto space-y-8">
+      <Progress value={progress} />
+      <div className="text-center space-y-2">
+        <p className="text-stone-400 text-[10px] font-bold uppercase tracking-[0.3em]">
+          Current Phase: {Math.round(progress)}% Complete
+        </p>
+        <p className="text-2xl text-[#1a1f2e] serif-heading animate-pulse">
+          {stage}
+        </p>
+      </div>
     </div>
   );
 }

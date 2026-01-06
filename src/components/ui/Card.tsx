@@ -9,7 +9,7 @@ interface CardProps {
 
 export function Card({ children, className = '' }: CardProps) {
   return (
-    <div className={`bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-sm ${className}`}>
+    <div className={`premium-card ${className}`}>
       {children}
     </div>
   );
@@ -17,19 +17,19 @@ export function Card({ children, className = '' }: CardProps) {
 
 export function CardHeader({ children, className = '' }: CardProps) {
   return (
-    <div className={`px-6 py-4 border-b border-zinc-200 dark:border-zinc-800 ${className}`}>
+    <div className={`px-10 py-8 border-b border-stone-50 ${className}`}>
       {children}
     </div>
   );
 }
 
 export function CardContent({ children, className = '' }: CardProps) {
-  return <div className={`px-6 py-4 ${className}`}>{children}</div>;
+  return <div className={`px-10 py-8 ${className}`}>{children}</div>;
 }
 
 export function CardTitle({ children, className = '' }: CardProps) {
   return (
-    <h3 className={`text-lg font-semibold text-zinc-900 dark:text-zinc-100 ${className}`}>
+    <h3 className={`text-2xl font-black text-[#1a1f2e] tracking-tight ${className}`}>
       {children}
     </h3>
   );

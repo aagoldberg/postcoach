@@ -30,29 +30,29 @@ export function AnalysisForm({ onSubmit, isLoading }: AnalysisFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-md mx-auto">
-      <div className="flex flex-col gap-4">
+    <form onSubmit={handleSubmit} className="w-full max-w-lg mx-auto">
+      <div className="flex flex-col gap-6">
         <Input
           type="text"
-          placeholder="Enter username or FID (e.g. vitalik or 1234)"
+          placeholder="ENTER USERNAME OR FID"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           error={error}
           disabled={isLoading}
-          className="text-center"
+          className="text-center font-bold tracking-widest text-sm"
         />
         <Button
           type="submit"
           variant="primary"
           size="lg"
           isLoading={isLoading}
-          className="w-full"
+          className="w-full py-6 rounded-3xl"
         >
-          Analyze My Casts
+          Begin Analysis
         </Button>
       </div>
-      <p className="text-xs text-zinc-500 dark:text-zinc-400 text-center mt-3">
-        We&apos;ll analyze your last 30 days of posts and give you actionable feedback
+      <p className="text-[10px] text-stone-400 font-bold uppercase tracking-[0.25em] text-center mt-6">
+        30-day historical content audit & strategy mapping
       </p>
     </form>
   );

@@ -63,6 +63,7 @@ export class NeynarProvider implements FarcasterProvider {
       timestamp: new Date(neynarCast.timestamp),
       parentHash: neynarCast.parent_hash,
       parentUrl: neynarCast.parent_url,
+      parentAuthorFid: neynarCast.parent_author?.fid ?? null,
       embeds: neynarCast.embeds.map((e) => ({
         url: e.url,
         castId: e.cast_id,
@@ -245,15 +246,15 @@ export class NeynarProvider implements FarcasterProvider {
           }
         );
 
+        // First pass: store basic engagement data
+        const castsWithReplies: string[] = [];
         for (const cast of response.result.casts) {
-          const uniqueRepliers: number[] = []; // Would need separate call for each
-
           results.set(cast.hash, {
             castHash: cast.hash,
             likesCount: cast.reactions.likes_count,
             recastsCount: cast.reactions.recasts_count,
             repliesCount: cast.replies.count,
-            uniqueRepliers,
+            uniqueRepliers: [],
             reactions: [
               ...(cast.reactions.likes || []).map((l) => ({
                 fid: l.fid,
@@ -268,6 +269,27 @@ export class NeynarProvider implements FarcasterProvider {
             ],
             replies: [],
           });
+
+          // Track casts that have replies (need to fetch them)
+          if (cast.replies.count > 0) {
+            castsWithReplies.push(cast.hash);
+          }
+        }
+
+        // Second pass: fetch replies for casts that have them (for uniqueRepliers calculation)
+        // Process in parallel with concurrency limit
+        const concurrencyLimit = 5;
+        for (let j = 0; j < castsWithReplies.length; j += concurrencyLimit) {
+          const replyBatch = castsWithReplies.slice(j, j + concurrencyLimit);
+          const replyPromises = replyBatch.map(async (hash) => {
+            const replies = await this.getCastReplies(hash);
+            const engagement = results.get(hash);
+            if (engagement) {
+              engagement.replies = replies;
+              engagement.uniqueRepliers = [...new Set(replies.map((r) => r.fid))];
+            }
+          });
+          await Promise.all(replyPromises);
         }
       }
     } catch (error) {
