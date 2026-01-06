@@ -88,7 +88,7 @@ export default function Home() {
                   PostCoach
                 </h1>
                 <p className="text-2xl text-stone-400 font-medium leading-relaxed max-w-xl mx-auto">
-                  AI analysis of your Farcaster casts
+                  AI-powered insights for Farcaster creators
                 </p>
               </div>
 
