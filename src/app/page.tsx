@@ -88,7 +88,7 @@ export default function Home() {
                   PostCoach
                 </h1>
                 <p className="text-2xl text-stone-400 font-medium leading-relaxed max-w-xl mx-auto">
-                  High-resolution content auditing for growth-oriented creators.
+                  AI analysis of your Farcaster casts
                 </p>
               </div>
 
