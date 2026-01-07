@@ -23,9 +23,12 @@ function InfoTip({ text }: { text: string }) {
         ?
       </button>
       {show && (
-        <div className="absolute z-50 bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-3 bg-[#1a1f2e] text-white text-xs rounded-xl shadow-xl animate-in fade-in zoom-in-95 duration-200">
-          <p className="leading-relaxed">{text}</p>
-          <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-[#1a1f2e]" />
+        <div
+          className="absolute z-[9999] left-6 top-1/2 -translate-y-1/2 w-48 p-3 text-xs rounded-xl shadow-xl animate-in fade-in zoom-in-95 duration-200"
+          style={{ backgroundColor: '#1a1f2e', color: '#ffffff' }}
+        >
+          <p className="leading-relaxed" style={{ color: '#ffffff' }}>{text}</p>
+          <div className="absolute right-full top-1/2 -translate-y-1/2 mr-[-1px] border-4 border-transparent border-r-[#1a1f2e]" />
         </div>
       )}
     </div>
