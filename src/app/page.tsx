@@ -80,11 +80,11 @@ export default function Home() {
   }, [result, runAnalysis]);
 
   return (
-    <div className={`min-h-screen transition-colors duration-500 ${theme === 'cyberpunk' ? 'theme-cyberpunk bg-[#050505] text-[#00f0ff]' : 'bg-[#f2f5f3] text-[#1a1f2e]'} font-sans`}>
+    <div className={`relative min-h-screen transition-colors duration-500 ${theme === 'cyberpunk' ? 'theme-cyberpunk bg-[#050505] text-[#00f0ff]' : 'bg-[#f2f5f3] text-[#1a1f2e]'} font-sans`}>
       {theme === 'cyberpunk' && <div className="scanlines fixed inset-0 pointer-events-none z-50"></div>}
       
       {/* Cyber-Switch Toggle */}
-      <div className="fixed top-4 right-4 md:top-8 md:right-8 z-[100]">
+      <div className="absolute top-4 right-4 md:top-8 md:right-8 z-[100]">
         <div className={`relative flex p-1 border transition-all duration-500
           ${theme === 'cyberpunk' 
             ? 'bg-black border-[#00f0ff] shadow-[0_0_15px_rgba(0,240,255,0.3)]' 
