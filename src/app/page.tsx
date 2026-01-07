@@ -85,7 +85,7 @@ export default function Home() {
       {theme === 'cyberpunk' && <div className="scanlines fixed inset-0 pointer-events-none z-50"></div>}
       
       {/* Header Controls */}
-      <div className="absolute top-4 right-4 md:top-8 md:right-8 z-[100] flex items-center gap-4">
+      <div className="absolute top-4 right-4 md:top-8 md:right-8 z-[100] flex items-center gap-2 md:gap-4">
         {/* Login Button */}
         <LoginButton theme={theme} />
 
@@ -120,16 +120,16 @@ export default function Home() {
         </div>
       </div>
 
-      <main className="container mx-auto px-4 py-8 md:py-24 max-w-6xl relative z-10">
+      <main className="container mx-auto px-4 py-8 md:py-32 max-w-7xl relative z-10">
         {state === 'idle' && (
-          <div className="flex flex-col items-center justify-center py-12 md:py-32 animate-in fade-in slide-in-from-bottom-12 duration-1000">
-            <div className="text-center space-y-8 md:space-y-16 max-w-3xl mx-auto w-full">
+          <div className="flex flex-col items-center justify-center py-12 md:py-20 animate-in fade-in slide-in-from-bottom-12 duration-1000">
+            <div className="text-center space-y-8 md:space-y-16 max-w-4xl mx-auto w-full">
               <div className="space-y-6 md:space-y-8">
                 <div className={`inline-flex items-center gap-3 px-5 py-2 rounded-full border shadow-sm mb-4 ${theme === 'cyberpunk' ? 'bg-black border-[#00f0ff] text-[#00f0ff]' : 'bg-white border-stone-200 text-stone-400'}`}>
                   <span className={`w-2 h-2 rounded-full animate-pulse ${theme === 'cyberpunk' ? 'bg-[#ff0099]' : 'bg-[#4b5e54]'}`}></span>
                   <span className="text-[10px] font-bold uppercase tracking-[0.3em]">Farcaster Intelligence Report</span>
                 </div>
-                <h1 className={`text-5xl md:text-9xl font-black tracking-tighter serif-heading italic ${theme === 'cyberpunk' ? 'text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]' : 'text-[#1a1f2e]'}`}>
+                <h1 className={`text-5xl md:text-7xl lg:text-9xl font-black tracking-tighter serif-heading italic ${theme === 'cyberpunk' ? 'text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]' : 'text-[#1a1f2e]'}`}>
                   PostCoach
                 </h1>
                 <p className={`text-lg md:text-2xl font-medium leading-relaxed max-w-xl mx-auto px-4 ${theme === 'cyberpunk' ? 'text-[#00f0ff] font-mono tracking-widest drop-shadow-[0_0_5px_rgba(0,240,255,0.8)]' : 'text-stone-400'}`}>

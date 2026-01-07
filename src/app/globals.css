@@ -475,6 +475,26 @@ h1, h2, h3, h4 {
 .theme-cyberpunk .gap-8 { gap: 0.75rem !important; }
 .theme-cyberpunk .gap-16 { gap: 1rem !important; }
 
+/* Farcaster AuthKit Cyberpunk Theming */
+.farcaster-auth-cyberpunk [data-farcaster-auth-kit-signin-button] {
+  background: transparent !important;
+  border: 1px solid var(--monokai-blue) !important;
+  color: var(--monokai-blue) !important;
+  border-radius: 0 !important;
+  font-family: var(--font-geist-mono) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  font-size: 10px !important;
+  padding: 0.5rem 1rem !important;
+  transition: all 0.3s ease !important;
+}
+
+.farcaster-auth-cyberpunk [data-farcaster-auth-kit-signin-button]:hover {
+  background: var(--monokai-blue) !important;
+  color: #000000 !important;
+  box-shadow: 0 0 15px rgba(87, 174, 255, 0.6) !important;
+}
+
 /* Scanlines Overlay */
 .theme-cyberpunk .scanlines {
   background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);

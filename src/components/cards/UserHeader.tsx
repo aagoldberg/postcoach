@@ -10,7 +10,7 @@ interface UserHeaderProps {
 
 export function UserHeader({ user }: UserHeaderProps) {
   return (
-    <Card className="flex flex-col items-center gap-4 p-6 md:p-8 bg-white text-center overflow-visible">
+    <Card className="flex flex-col items-center gap-4 p-6 md:p-8 bg-white text-center overflow-visible transition-all duration-500 hover:shadow-2xl hover:-translate-y-1">
       <div className="relative w-20 h-24 md:w-24 md:h-24 rounded-[2rem] overflow-hidden border-[6px] border-white shadow-xl flex-shrink-0">
         {user.pfpUrl ? (
           <Image

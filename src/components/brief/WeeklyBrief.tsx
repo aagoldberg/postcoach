@@ -60,14 +60,14 @@ Generated with PostCoach`;
               {/* Actions moved here */}
               <div className="flex gap-2 w-full md:w-auto">
                 <Button 
-                  variant="outline" 
+                  variant="ghost" 
                   size="sm" 
                   onClick={() => {
                     document.getElementById('deep-dives')?.scrollIntoView({ behavior: 'smooth' });
                   }}
-                  className="flex-1 md:flex-none h-8 border-stone-200 text-stone-400 hover:text-stone-600 hover:border-stone-300"
+                  className="flex-1 md:flex-none h-8 text-info-bold hover:text-info-bold hover:bg-info-subtle transition-colors mr-2"
                 >
-                  Evidence
+                  See Post Analysis ↓
                 </Button>
                 <Button variant="outline" size="sm" onClick={copyToClipboard} className="flex-1 md:flex-none h-8 border-stone-200 text-stone-400 hover:text-stone-600 hover:border-stone-300">
                   Copy

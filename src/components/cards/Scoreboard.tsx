@@ -34,7 +34,7 @@ function InfoTip({ text }: { text: string }) {
 
 export function Scoreboard({ metrics, topTheme }: ScoreboardProps) {
   return (
-    <Card className="h-full border-none shadow-[0_20px_40px_-12px_rgba(0,0,0,0.06)] bg-white overflow-hidden">
+    <Card className="h-full border-none shadow-[0_20px_40px_-12px_rgba(0,0,0,0.06)] bg-white overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-1">
       <CardHeader className="pb-0 border-none px-6 md:px-8 pt-6 md:pt-8">
         <CardTitle className="text-xl md:text-2xl serif-heading italic">Performance</CardTitle>
       </CardHeader>
