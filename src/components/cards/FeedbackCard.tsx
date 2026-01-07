@@ -37,7 +37,7 @@ export function FeedbackCard({ analysis, type }: FeedbackCardProps) {
           </p>
         </div>
 
-        {/* Analysis Headline (The Hook) */}
+        {/* Feedback - The Hero */}
         {feedback && (
           <div className="space-y-6">
             <div>
@@ -51,7 +51,7 @@ export function FeedbackCard({ analysis, type }: FeedbackCardProps) {
                     e.stopPropagation();
                     setIsExpanded(true);
                   }}
-                  className="w-full py-3 mt-2 flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-indigo-600 bg-indigo-50/50 hover:bg-indigo-50 rounded-xl transition-colors group"
+                  className="w-full py-3 mt-2 flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-info-bold bg-info-subtle hover:bg-indigo-100 rounded-xl transition-colors group"
                 >
                   View Full Analysis
                   <svg className="w-3 h-3 transition-transform group-hover:translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -67,7 +67,7 @@ export function FeedbackCard({ analysis, type }: FeedbackCardProps) {
                 <div className="grid grid-cols-1 gap-8">
                   {isTop ? (
                     <div>
-                      <p className="text-[10px] uppercase font-bold text-emerald-600 mb-4 tracking-[0.3em]">
+                      <p className="text-[10px] uppercase font-bold text-success-bold mb-4 tracking-[0.3em]">
                         Success Factors
                       </p>
                       <ul className="space-y-3">
@@ -81,7 +81,7 @@ export function FeedbackCard({ analysis, type }: FeedbackCardProps) {
                     </div>
                   ) : (
                     <div>
-                      <p className="text-[10px] uppercase font-bold text-rose-600 mb-4 tracking-[0.3em]">
+                      <p className="text-[10px] uppercase font-bold text-error-bold mb-4 tracking-[0.3em]">
                         Friction Points
                       </p>
                       <ul className="space-y-3">
@@ -116,7 +116,7 @@ export function FeedbackCard({ analysis, type }: FeedbackCardProps) {
                     e.stopPropagation();
                     setIsExpanded(false);
                   }}
-                  className="w-full py-3 flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-stone-400 hover:text-stone-600 hover:bg-stone-50 rounded-xl transition-all"
+                  className="w-full py-3 flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-stone-400 hover:text-stone-600 hover:bg-surface-subtle rounded-xl transition-all"
                 >
                   Collapse Analysis
                   <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">

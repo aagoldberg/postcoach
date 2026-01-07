@@ -76,21 +76,46 @@ body {
     opacity: 0.15;
   }
   /* Cyberpunk Button Overrides */
-  .theme-cyberpunk button[type="submit"],
-  .theme-cyberpunk .bg-\[\#1a1f2e\] {
-    background-color: #00f0ff !important;
-    color: #000000 !important;
+  .theme-cyberpunk button {
     font-family: var(--font-geist-mono) !important;
     text-transform: uppercase !important;
-    letter-spacing: 0.2em !important;
-    font-weight: 900 !important;
-    box-shadow: 0 0 20px rgba(0, 240, 255, 0.4) !important;
+    letter-spacing: 0.15em !important;
+    font-weight: 700 !important;
+    border-radius: 0 !important;
+    transition: all 0.3s ease !important;
+  }
+
+  /* Primary / Submit / Success Buttons */
+  .theme-cyberpunk button[type="submit"],
+  .theme-cyberpunk .bg-\[\#1a1f2e\],
+  .theme-cyberpunk .bg-indigo-600 {
+    background-color: #00f0ff !important;
+    color: #000000 !important;
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.4) !important;
     border: none !important;
   }
 
-  .theme-cyberpunk button[type="submit"]:hover {
-    background-color: #fff !important;
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.6) !important;
+  /* Secondary / Stone buttons -> Magenta */
+  .theme-cyberpunk .bg-stone-50,
+  .theme-cyberpunk .bg-stone-100 {
+    background-color: #ff0099 !important;
+    color: #000 !important;
+    border: none !important;
+    box-shadow: 0 0 15px rgba(255, 0, 153, 0.3) !important;
+  }
+
+  /* Outline buttons -> Cyan Border/Text */
+  .theme-cyberpunk .border-stone-200,
+  .theme-cyberpunk .border-stone-300 {
+    border: 1px solid #00f0ff !important;
+    color: #00f0ff !important;
+    background-color: transparent !important;
+  }
+
+  .theme-cyberpunk button:hover {
+    filter: brightness(1.2) !important;
+    box-shadow: 0 0 25px currentColor !important;
+    transform: translateY(-1px) !important;
   }
 
   /* Cyberpunk Input Overrides - High Specificity */
@@ -170,31 +195,212 @@ body {
   box-shadow: 0 0 15px rgba(0, 240, 255, 0.5) !important;
 }
 
-/* Map Rose -> Magenta */
+/* Map Rose -> Neon Red (Danger) */
 .theme-cyberpunk .text-rose-600,
 .theme-cyberpunk .text-rose-500 {
-  color: #ff0099 !important;
-  text-shadow: 0 0 10px rgba(255, 0, 153, 0.5);
+  color: #ff3131 !important;
+  text-shadow: 0 0 10px rgba(255, 49, 49, 0.5);
 }
 
-.theme-cyberpunk .bg-rose-500 {
-  background-color: #ff0099 !important;
-  box-shadow: 0 0 15px rgba(255, 0, 153, 0.5) !important;
+/* Semantic Theme Utilities */
+@layer utilities {
+  /* Success (Win) */
+  .bg-success-subtle {
+    @apply bg-emerald-50;
+  }
+  .text-success-bold {
+    @apply text-emerald-600;
+  }
+  .icon-success {
+    @apply text-emerald-600;
+  }
+
+  /* Error (Weakness/Risk) */
+  .bg-error-subtle {
+    @apply bg-rose-50;
+  }
+  .text-error-bold {
+    @apply text-rose-600;
+  }
+  .icon-error {
+    @apply text-rose-500;
+  }
+
+  /* Info (Experiment/Neutral) */
+  .bg-info-subtle {
+    @apply bg-indigo-50;
+  }
+  .text-info-bold {
+    @apply text-indigo-600;
+  }
+  .icon-info {
+    @apply text-indigo-600;
+  }
+
+  /* Container Backgrounds */
+  .bg-surface-subtle {
+    @apply bg-stone-50;
+  }
 }
 
-/* Force sharp corners */
-.theme-cyberpunk * {
+/* Cyberpunk Semantic Overrides */
+.theme-cyberpunk .bg-success-subtle {
+  background-color: rgba(0, 240, 255, 0.1) !important;
+  border: 1px solid rgba(0, 240, 255, 0.3);
+}
+.theme-cyberpunk .text-success-bold,
+.theme-cyberpunk .icon-success {
+  color: #00f0ff !important;
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+}
+
+.theme-cyberpunk .bg-error-subtle {
+  background-color: rgba(255, 49, 49, 0.1) !important;
+  border: 1px solid rgba(255, 49, 49, 0.3);
+}
+.theme-cyberpunk .text-error-bold,
+.theme-cyberpunk .icon-error {
+  color: #ff3131 !important;
+  text-shadow: 0 0 10px rgba(255, 49, 49, 0.5);
+}
+
+.theme-cyberpunk .bg-info-subtle {
+  background-color: rgba(0, 240, 255, 0.05) !important;
+  border: 1px solid rgba(0, 240, 255, 0.2);
+}
+.theme-cyberpunk .text-info-bold,
+.theme-cyberpunk .icon-info {
+  color: #00f0ff !important;
+}
+
+.theme-cyberpunk .bg-surface-subtle {
+  background-color: #0a0a0a !important;
+  border: 1px solid #222;
+}
+
+/* Map Rose/Pink BG -> Red (Danger) */
+.theme-cyberpunk .bg-rose-500,
+.theme-cyberpunk .bg-pink-500,
+.theme-cyberpunk .bg-red-500 {
+  background-color: #ff3131 !important;
+  color: #000 !important;
+  box-shadow: 0 0 15px rgba(255, 49, 49, 0.5) !important;
+}
+
+/* Map Emerald/Green/Teal/Indigo/Violet BG -> Cyan (Success/Info) */
+.theme-cyberpunk .bg-emerald-500,
+.theme-cyberpunk .bg-green-500,
+.theme-cyberpunk .bg-teal-500,
+.theme-cyberpunk .bg-indigo-500,
+.theme-cyberpunk .bg-violet-500,
+.theme-cyberpunk .bg-purple-500,
+.theme-cyberpunk .bg-blue-500 {
+  background-color: #00f0ff !important;
+  color: #000 !important;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.5) !important;
+}
+
+/* Force text on these buttons/badges to be black for readability on neon */
+.theme-cyberpunk .bg-rose-500 *,
+.theme-cyberpunk .bg-pink-500 *,
+.theme-cyberpunk .bg-emerald-500 *,
+.theme-cyberpunk .bg-indigo-500 * {
+  color: #000 !important;
+}
+
+/* Cyberpunk Button Overrides */
+.theme-cyberpunk button {
+  font-family: var(--font-geist-mono) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.15em !important;
+  font-weight: 700 !important;
   border-radius: 0 !important;
+  transition: all 0.3s ease !important;
 }
 
-/* Card Glows */
-.theme-cyberpunk .premium-card,
-.theme-cyberpunk .overflow-hidden {
-  border: 1px solid #222 !important;
+/* Primary / Submit / Success Buttons */
+.theme-cyberpunk button[type="submit"],
+.theme-cyberpunk .bg-\[\#1a1f2e\],
+.theme-cyberpunk .bg-indigo-600 {
+  background-color: #00f0ff !important;
+  color: #000000 !important;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.4) !important;
+  border: none !important;
+}
+
+/* Secondary / Stone buttons -> White */
+.theme-cyberpunk .bg-stone-50,
+.theme-cyberpunk .bg-stone-100 {
+  background-color: #111111 !important;
+  color: #ffffff !important;
+  border: 1px solid #333 !important;
   box-shadow: none !important;
 }
 
-.theme-cyberpunk .premium-card:hover {
-  border-color: #00f0ff !important;
-  box-shadow: 0 0 20px rgba(0, 240, 255, 0.2) !important;
+/* Map Rose BG -> Red Tint */
+.theme-cyberpunk .bg-rose-50 {
+  background-color: rgba(255, 49, 49, 0.1) !important;
+  border: 1px solid rgba(255, 49, 49, 0.3) !important;
+}
+
+/* Map Emerald/Indigo/Teal BG -> Cyan Tint */
+.theme-cyberpunk .bg-emerald-50,
+.theme-cyberpunk .bg-teal-50,
+.theme-cyberpunk .bg-indigo-50 {
+  background-color: rgba(0, 240, 255, 0.1) !important;
+  border: 1px solid rgba(0, 240, 255, 0.3) !important;
+}
+
+/* Map Text Colors */
+.theme-cyberpunk .text-rose-600 {
+  color: #ff3131 !important;
+}
+
+.theme-cyberpunk .text-emerald-600,
+.theme-cyberpunk .text-teal-600,
+.theme-cyberpunk .text-indigo-600 {
+  color: #00f0ff !important;
+}
+
+/* Map specific hardcoded backgrounds from WeeklyBrief */
+.theme-cyberpunk .bg-\[\#4f46e5\],
+.theme-cyberpunk .bg-\[\#18181b\] {
+  background-color: #000000 !important;
+  border-bottom: 1px solid #00f0ff !important;
+}
+
+/* Map secondary backgrounds */
+.theme-cyberpunk .bg-slate-50,
+.theme-cyberpunk .bg-zinc-50,
+.theme-cyberpunk .bg-stone-50 {
+  background-color: #0a0a0a !important;
+  border-color: #222 !important;
+  color: #fff !important;
+}
+
+/* Force text in those boxes to be white/grey if not colored */
+.theme-cyberpunk .bg-slate-50 p,
+.theme-cyberpunk .bg-stone-50 p {
+  color: #ccc !important;
+}
+
+/* Weekly Brief Title Special Case */
+.theme-cyberpunk .bg-\[\#4f46e5\] h3,
+.theme-cyberpunk .bg-\[\#4f46e5\] span {
+  color: #00f0ff !important;
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+}
+
+/* Outline buttons -> Cyan Border/Text */
+.theme-cyberpunk .border-stone-200,
+.theme-cyberpunk .border-stone-300 {
+  border: 1px solid #00f0ff !important;
+  color: #00f0ff !important;
+  background-color: transparent !important;
+}
+
+.theme-cyberpunk button:hover {
+  filter: brightness(1.2) !important;
+  box-shadow: 0 0 25px currentColor !important;
+  transform: translateY(-1px) !important;
 }

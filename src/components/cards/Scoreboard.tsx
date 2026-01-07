@@ -103,13 +103,13 @@ export function Scoreboard({ metrics, topTheme }: ScoreboardProps) {
             <span className="text-[10px] font-bold text-stone-300 uppercase tracking-[0.2em] block mb-4">
               Best Performing Topic
             </span>
-            <div className="bg-stone-50 rounded-2xl p-6 flex flex-col gap-3">
+            <div className="bg-surface-subtle rounded-2xl p-6 flex flex-col gap-3">
               <p className="text-lg font-bold text-[#1a1f2e] leading-snug">
                 {topTheme.label}
               </p>
               <div className="flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
-                <span className="text-xs font-bold text-emerald-600 uppercase tracking-wider">
+                <span className="text-xs font-bold text-success-bold uppercase tracking-wider">
                   {topTheme.avgEngagement.toFixed(0)} Avg Score
                 </span>
               </div>

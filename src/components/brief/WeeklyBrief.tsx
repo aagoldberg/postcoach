@@ -83,14 +83,14 @@ Generated with PostCoach`;
             {/* Win Section */}
             <div className="p-8 border-b border-stone-50">
               <div className="flex items-start gap-6">
-                <div className="w-12 h-12 rounded-2xl bg-stone-50 flex items-center justify-center flex-shrink-0">
-                  <svg className="w-6 h-6 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="w-12 h-12 rounded-2xl bg-success-subtle flex items-center justify-center flex-shrink-0">
+                  <svg className="w-6 h-6 icon-success" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-[10px] font-bold text-emerald-600 uppercase tracking-[0.25em]">
+                    <span className="text-[10px] font-bold text-success-bold uppercase tracking-[0.25em]">
                       The Performance Win
                     </span>
                   </div>
@@ -100,11 +100,11 @@ Generated with PostCoach`;
                   <p className="text-base text-stone-500 mb-4 leading-relaxed font-medium">
                     {brief.win.description}
                   </p>
-                  <div className="inline-flex items-center gap-3 bg-stone-50 px-4 py-2 rounded-xl">
+                  <div className="inline-flex items-center gap-3 bg-surface-subtle px-4 py-2 rounded-xl">
                     <span className="text-[10px] font-bold text-stone-400 uppercase tracking-widest">
                       {brief.win.metric}:
                     </span>
-                    <span className="text-base font-black text-emerald-600 tracking-tighter">
+                    <span className="text-base font-black text-success-bold tracking-tighter">
                       {brief.win.value}
                     </span>
                   </div>
@@ -115,14 +115,14 @@ Generated with PostCoach`;
             {/* Weakness Section */}
             <div className="p-8 border-b border-stone-50">
               <div className="flex items-start gap-6">
-                <div className="w-12 h-12 rounded-2xl bg-stone-50 flex items-center justify-center flex-shrink-0">
-                  <svg className="w-6 h-6 text-rose-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="w-12 h-12 rounded-2xl bg-error-subtle flex items-center justify-center flex-shrink-0">
+                  <svg className="w-6 h-6 icon-error" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                   </svg>
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-[10px] font-bold text-rose-600 uppercase tracking-[0.25em]">
+                    <span className="text-[10px] font-bold text-error-bold uppercase tracking-[0.25em]">
                       The Opportunity
                     </span>
                   </div>
@@ -132,11 +132,11 @@ Generated with PostCoach`;
                   <p className="text-base text-stone-500 mb-4 leading-relaxed font-medium">
                     {brief.weakness.description}
                   </p>
-                  <div className="inline-flex items-center gap-3 bg-stone-50 px-4 py-2 rounded-xl">
+                  <div className="inline-flex items-center gap-3 bg-surface-subtle px-4 py-2 rounded-xl">
                     <span className="text-[10px] font-bold text-stone-400 uppercase tracking-widest">
                       {brief.weakness.metric}:
                     </span>
-                    <span className="text-base font-black text-rose-600 tracking-tighter">
+                    <span className="text-base font-black text-error-bold tracking-tighter">
                       {brief.weakness.value}
                     </span>
                   </div>
@@ -154,7 +154,7 @@ Generated with PostCoach`;
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-[10px] font-bold text-[#1a1f2e] uppercase tracking-[0.25em]">
+                    <span className="text-[10px] font-bold text-info-bold uppercase tracking-[0.25em]">
                       The Experiment
                     </span>
                   </div>
@@ -164,7 +164,7 @@ Generated with PostCoach`;
                   <p className="text-base text-stone-500 mb-6 leading-relaxed font-medium">
                     {brief.experiment.description}
                   </p>
-                  <div className="bg-stone-50 rounded-2xl p-8 relative group border border-stone-100">
+                  <div className="bg-surface-subtle rounded-2xl p-8 relative group border border-stone-100">
                     <p className="text-[10px] text-stone-400 mb-4 font-bold uppercase tracking-[0.25em]">The format:</p>
                     <p className="text-2xl text-slate-900 serif-heading leading-tight italic">
                       &ldquo;{brief.experiment.format || (brief.experiment as unknown as { templateCast?: string }).templateCast || ''}&rdquo;
@@ -174,7 +174,7 @@ Generated with PostCoach`;
                     <div className="mt-6 space-y-3">
                       {brief.experiment.formatBreakdown.map((item, index) => (
                         <div key={index} className="flex items-start gap-3">
-                          <span className="w-6 h-6 rounded-full bg-stone-100 text-[#1a1f2e] flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">
+                          <span className="w-6 h-6 rounded-full bg-surface-subtle text-[#1a1f2e] flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">
                             {index + 1}
                           </span>
                           <span className="text-sm text-slate-600 leading-relaxed font-medium">{item}</span>
