@@ -46,17 +46,18 @@ export function AnalysisResults({ result, onReset, onRefresh }: AnalysisResultsP
   }, [user.username]);
 
   return (
-    <div className="space-y-12 animate-in fade-in duration-1000">
+    <div className="space-y-8 md:space-y-12 animate-in fade-in duration-1000 px-2 md:px-0">
       {/* Navigation Bar */}
-      <div className="flex items-center justify-between py-6 border-b border-stone-200/60 mb-8">
+      <div className="flex flex-col md:flex-row md:items-center justify-between py-4 md:py-6 border-b border-stone-200/60 mb-4 md:mb-8 gap-4">
         <Button
           variant="outline"
           size="sm"
           onClick={onReset}
+          className="w-full md:w-auto"
         >
           ← New Analysis
         </Button>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center justify-between md:justify-end gap-4 w-full md:w-auto">
           {result.cached && onRefresh && (
             <Button
               variant="outline"
@@ -66,7 +67,7 @@ export function AnalysisResults({ result, onReset, onRefresh }: AnalysisResultsP
               ↻ Refresh
             </Button>
           )}
-          <span className="text-[10px] font-bold text-stone-400 uppercase tracking-[0.3em]">
+          <span className="text-[10px] font-bold text-stone-400 uppercase tracking-[0.2em] md:tracking-[0.3em]">
             {result.cached ? 'Cached' : 'Fresh'} • #{user.fid}
           </span>
         </div>

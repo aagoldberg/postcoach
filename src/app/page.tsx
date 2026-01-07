@@ -84,7 +84,7 @@ export default function Home() {
       {theme === 'cyberpunk' && <div className="scanlines fixed inset-0 pointer-events-none z-50"></div>}
       
       {/* Cyber-Switch Toggle */}
-      <div className="fixed top-8 right-8 z-[100]">
+      <div className="fixed top-4 right-4 md:top-8 md:right-8 z-[100]">
         <div className={`relative flex p-1 border transition-all duration-500
           ${theme === 'cyberpunk' 
             ? 'bg-black border-[#00f0ff] shadow-[0_0_15px_rgba(0,240,255,0.3)]' 
@@ -99,7 +99,7 @@ export default function Home() {
 
           <button 
             onClick={() => setTheme('sage')}
-            className={`relative z-10 px-6 py-2 text-[10px] font-mono font-bold uppercase tracking-[0.2em] transition-colors duration-300
+            className={`relative z-10 px-4 py-1.5 md:px-6 md:py-2 text-[8px] md:text-[10px] font-mono font-bold uppercase tracking-[0.2em] transition-colors duration-300
               ${theme === 'sage' ? 'text-[#1a1f2e]' : 'text-stone-400 hover:text-stone-600'}`}
           >
             Sage
@@ -107,7 +107,7 @@ export default function Home() {
 
           <button 
             onClick={() => setTheme('cyberpunk')}
-            className={`relative z-10 px-6 py-2 text-[10px] font-mono font-bold uppercase tracking-[0.2em] transition-colors duration-300
+            className={`relative z-10 px-4 py-1.5 md:px-6 md:py-2 text-[8px] md:text-[10px] font-mono font-bold uppercase tracking-[0.2em] transition-colors duration-300
               ${theme === 'cyberpunk' ? 'text-black' : 'text-stone-400 hover:text-[#00f0ff]'}`}
           >
             Cyber

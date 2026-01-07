@@ -35,20 +35,20 @@ function InfoTip({ text }: { text: string }) {
 export function Scoreboard({ metrics, topTheme }: ScoreboardProps) {
   return (
     <Card className="h-full border-none shadow-[0_20px_40px_-12px_rgba(0,0,0,0.06)] bg-white overflow-hidden">
-      <CardHeader className="pb-0 border-none px-8 pt-8">
-        <CardTitle className="text-2xl serif-heading italic">Performance</CardTitle>
+      <CardHeader className="pb-0 border-none px-6 md:px-8 pt-6 md:pt-8">
+        <CardTitle className="text-xl md:text-2xl serif-heading italic">Performance</CardTitle>
       </CardHeader>
-      <CardContent className="p-8 pt-6 space-y-6">
+      <CardContent className="p-6 md:p-8 pt-4 md:pt-6 space-y-6">
         
         {/* Key Metrics List */}
-        <div className="space-y-6">
+        <div className="space-y-4 md:space-y-6">
           <div className="flex justify-between items-baseline pb-4 border-b border-stone-100">
             <span className="text-stone-400 font-medium text-sm flex items-center">
               Reply rate
               <InfoTip text="Percentage of your posts that received at least one reply. Higher = your content sparks conversation." />
             </span>
             <div className="text-right">
-              <span className="block text-3xl font-black text-[#1a1f2e] tracking-tighter">
+              <span className="block text-2xl md:text-3xl font-black text-[#1a1f2e] tracking-tighter">
                 {(metrics.replyRate * 100).toFixed(0)}%
               </span>
               <span className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">of posts</span>
@@ -62,7 +62,7 @@ export function Scoreboard({ metrics, topTheme }: ScoreboardProps) {
                 <InfoTip text="Of people you've replied to, what % replied back to you? Measures two-way relationships, not just broadcast reach." />
               </span>
               <div className="text-right">
-                <span className="block text-3xl font-black text-[#1a1f2e] tracking-tighter">
+                <span className="block text-2xl md:text-3xl font-black text-[#1a1f2e] tracking-tighter">
                   {(metrics.reciprocityRate * 100).toFixed(0)}%
                 </span>
                 <span className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">mutual convos</span>
@@ -76,7 +76,7 @@ export function Scoreboard({ metrics, topTheme }: ScoreboardProps) {
               <InfoTip text="What % of your repliers come back to reply again? High = you're building a loyal community, not just one-time visitors." />
             </span>
             <div className="text-right">
-              <span className="block text-3xl font-black text-[#1a1f2e] tracking-tighter">
+              <span className="block text-2xl md:text-3xl font-black text-[#1a1f2e] tracking-tighter">
                 {(metrics.repeatReplierRate * 100).toFixed(0)}%
               </span>
               <span className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">loyalty</span>
@@ -89,7 +89,7 @@ export function Scoreboard({ metrics, topTheme }: ScoreboardProps) {
               <InfoTip text="Median engagement per post. Calculated as: replies×3 + recasts×2 + likes×1. Replies weighted highest because they signal real interest." />
             </span>
             <div className="text-right">
-              <span className="block text-3xl font-black text-[#1a1f2e] tracking-tighter">
+              <span className="block text-2xl md:text-3xl font-black text-[#1a1f2e] tracking-tighter">
                 {metrics.medianEngagementScore.toFixed(0)}
               </span>
               <span className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">per cast</span>
@@ -99,12 +99,12 @@ export function Scoreboard({ metrics, topTheme }: ScoreboardProps) {
 
         {/* Top Topic - Simplified */}
         {topTheme && (
-          <div className="pt-4">
+          <div className="pt-2 md:pt-4">
             <span className="text-[10px] font-bold text-stone-300 uppercase tracking-[0.2em] block mb-4">
               Best Performing Topic
             </span>
-            <div className="bg-surface-subtle rounded-2xl p-6 flex flex-col gap-3">
-              <p className="text-lg font-bold text-[#1a1f2e] leading-snug">
+            <div className="bg-surface-subtle rounded-2xl p-4 md:p-6 flex flex-col gap-3">
+              <p className="text-base md:text-lg font-bold text-[#1a1f2e] leading-snug">
                 {topTheme.label}
               </p>
               <div className="flex items-center gap-2">

@@ -19,9 +19,9 @@ export function FeedbackCard({ analysis, type }: FeedbackCardProps) {
       className={`overflow-hidden bg-white border-none shadow-[0_10px_30px_-10px_rgba(0,0,0,0.03)] transition-all duration-500 ${isExpanded ? 'shadow-[0_20px_60px_-15px_rgba(0,0,0,0.08)] scale-[1.01]' : 'hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.05)] cursor-pointer'}`}
       onClick={() => !isExpanded && setIsExpanded(true)}
     >
-      <CardContent className="p-8">
+      <CardContent className="p-6 md:p-8">
         {/* Header: Signal & Meta (Always Visible) */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-4 md:mb-6">
           <div className="flex items-center gap-3">
             <div className={`w-2.5 h-2.5 rounded-full ${isTop ? 'bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.3)]' : 'bg-rose-500'}`} />
             <span className="text-[10px] font-bold text-stone-300 uppercase tracking-[0.3em]">{isTop ? 'High Signal' : 'Low Signal'}</span>
@@ -30,7 +30,7 @@ export function FeedbackCard({ analysis, type }: FeedbackCardProps) {
         </div>
 
         {/* Content Preview (Always Visible) */}
-        <div className="mb-8">
+        <div className="mb-6 md:mb-8">
           <p className="text-stone-400 text-xs font-medium uppercase tracking-widest mb-3">Context</p>
           <p className="text-stone-500 text-sm leading-relaxed line-clamp-2 font-medium italic border-l-2 border-stone-100 pl-4">
             &ldquo;{cast.text}&rdquo;
@@ -41,7 +41,7 @@ export function FeedbackCard({ analysis, type }: FeedbackCardProps) {
         {feedback && (
           <div className="space-y-6">
             <div>
-              <p className="text-xl font-black text-[#1a1f2e] leading-tight tracking-tight serif-heading mb-4">
+              <p className="text-lg md:text-xl font-black text-[#1a1f2e] leading-tight tracking-tight serif-heading mb-4">
                 {feedback.summary}
               </p>
               
@@ -63,8 +63,8 @@ export function FeedbackCard({ analysis, type }: FeedbackCardProps) {
 
             {/* Expanded Content */}
             {isExpanded && (
-              <div className="space-y-8 animate-in fade-in slide-in-from-top-4 duration-500 pt-4 border-t border-stone-50">
-                <div className="grid grid-cols-1 gap-8">
+              <div className="space-y-6 md:space-y-8 animate-in fade-in slide-in-from-top-4 duration-500 pt-4 border-t border-stone-50">
+                <div className="grid grid-cols-1 gap-6 md:gap-8">
                   {isTop ? (
                     <div>
                       <p className="text-[10px] uppercase font-bold text-success-bold mb-4 tracking-[0.3em]">
@@ -74,7 +74,7 @@ export function FeedbackCard({ analysis, type }: FeedbackCardProps) {
                         {feedback.whatToReplicate.map((item, idx) => (
                           <li key={idx} className="flex items-start gap-3">
                             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-2 flex-shrink-0"></span>
-                            <span className="text-base text-stone-600 font-medium leading-relaxed">{item}</span>
+                            <span className="text-sm md:text-base text-stone-600 font-medium leading-relaxed">{item}</span>
                           </li>
                         ))}
                       </ul>
@@ -88,7 +88,7 @@ export function FeedbackCard({ analysis, type }: FeedbackCardProps) {
                         {feedback.whatToAvoid.map((item, idx) => (
                           <li key={idx} className="flex items-start gap-3">
                             <span className="w-1.5 h-1.5 rounded-full bg-rose-500 mt-2 flex-shrink-0"></span>
-                            <span className="text-base text-stone-600 font-medium leading-relaxed">{item}</span>
+                            <span className="text-sm md:text-base text-stone-600 font-medium leading-relaxed">{item}</span>
                           </li>
                         ))}
                       </ul>
