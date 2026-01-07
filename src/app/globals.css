@@ -7,6 +7,15 @@
   --brand-primary: #1a1f2e; /* Ink */
   --brand-secondary: #4b5e54; /* Muted Forest */
   --brand-accent: #d4b483; /* Muted Gold */
+
+  /* --- TOGGLE DESIGN SYSTEM (Sage Default) --- */
+  --toggle-bg: #ffffff;
+  --toggle-border: #e7e5e4; /* stone-200 */
+  --toggle-slider: #f5f5f4; /* stone-100 */
+  --toggle-text: #a8a29e;   /* stone-400 */
+  --toggle-text-active: #1a1f2e;
+  --toggle-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); /* shadow-sm */
+  --toggle-glow: none;
 }
 
 @theme inline {
@@ -127,6 +136,15 @@ p, li, span, div, strong, b {
   --brand-secondary: var(--monokai-blue);
   --brand-accent: var(--monokai-purple);
   --font-sans: var(--font-geist-mono);
+
+  /* --- TOGGLE DESIGN SYSTEM (Cyberpunk) --- */
+  --toggle-bg: #000000;
+  --toggle-border: var(--monokai-blue);
+  --toggle-slider: var(--monokai-blue);
+  --toggle-text: #a8a29e;
+  --toggle-text-active: #000000;
+  --toggle-shadow: none;
+  --toggle-glow: 0 0 15px rgba(87, 174, 255, 0.3);
 }
 
 .theme-cyberpunk * {

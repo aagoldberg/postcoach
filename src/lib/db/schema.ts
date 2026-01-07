@@ -40,6 +40,14 @@ export const users = pgTable('postcoach_users', {
   lastLoginAt: timestamp('last_login_at').defaultNow().notNull(),
 });
 
+// Track every analysis run (for analytics)
+export const analysisEvents = pgTable('postcoach_analysis_events', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  fid: integer('fid').notNull(),
+  username: text('username'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
 // Track which analyses a user has viewed (history)
 export const userAnalysisHistory = pgTable('postcoach_user_analysis_history', {
   id: uuid('id').defaultRandom().primaryKey(),
@@ -57,3 +65,4 @@ export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
 export type UserAnalysisHistory = typeof userAnalysisHistory.$inferSelect;
 export type NewUserAnalysisHistory = typeof userAnalysisHistory.$inferInsert;
+export type AnalysisEvent = typeof analysisEvents.$inferSelect;

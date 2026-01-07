@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getDb } from '@/lib/db';
-import { users, userAnalysisHistory, analysisCache } from '@/lib/db/schema';
+import { users, userAnalysisHistory, analysisCache, analysisEvents } from '@/lib/db/schema';
 import { sql, desc, count, gte } from 'drizzle-orm';
 
 export async function GET() {
@@ -33,30 +33,30 @@ export async function GET() {
       .from(users)
       .where(gte(users.createdAt, weekAgo));
 
-    // Analysis stats
+    // Analysis stats (from events table)
     const [totalAnalyses] = await db
       .select({ count: count() })
-      .from(analysisCache);
+      .from(analysisEvents);
 
     const [analysesToday] = await db
       .select({ count: count() })
-      .from(analysisCache)
-      .where(gte(analysisCache.createdAt, today));
+      .from(analysisEvents)
+      .where(gte(analysisEvents.createdAt, today));
 
     const [analysesThisWeek] = await db
       .select({ count: count() })
-      .from(analysisCache)
-      .where(gte(analysisCache.createdAt, weekAgo));
+      .from(analysisEvents)
+      .where(gte(analysisEvents.createdAt, weekAgo));
 
     // Most analyzed accounts (top 10)
     const topAnalyzedAccounts = await db
       .select({
-        username: analysisCache.username,
-        fid: analysisCache.fid,
+        username: analysisEvents.username,
+        fid: analysisEvents.fid,
         count: count(),
       })
-      .from(analysisCache)
-      .groupBy(analysisCache.fid, analysisCache.username)
+      .from(analysisEvents)
+      .groupBy(analysisEvents.fid, analysisEvents.username)
       .orderBy(desc(count()))
       .limit(10);
 
@@ -100,13 +100,13 @@ export async function GET() {
     // Analyses by day (last 30 days)
     const analysesByDay = await db
       .select({
-        date: sql<string>`DATE(${analysisCache.createdAt})`.as('date'),
+        date: sql<string>`DATE(${analysisEvents.createdAt})`.as('date'),
         count: count(),
       })
-      .from(analysisCache)
-      .where(gte(analysisCache.createdAt, monthAgo))
-      .groupBy(sql`DATE(${analysisCache.createdAt})`)
-      .orderBy(sql`DATE(${analysisCache.createdAt})`);
+      .from(analysisEvents)
+      .where(gte(analysisEvents.createdAt, monthAgo))
+      .groupBy(sql`DATE(${analysisEvents.createdAt})`)
+      .orderBy(sql`DATE(${analysisEvents.createdAt})`);
 
     return NextResponse.json({
       success: true,

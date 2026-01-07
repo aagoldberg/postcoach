@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { runAnalysisPipeline } from '@/lib/analysis/pipeline';
-import { getCachedAnalysis, setCachedAnalysis, checkRateLimit } from '@/lib/db';
+import { getCachedAnalysis, setCachedAnalysis, checkRateLimit, logAnalysisEvent } from '@/lib/db';
 import type { AnalyzeResponse } from '@/types';
 
 export const maxDuration = 60; // Allow up to 60 seconds for analysis
@@ -51,6 +51,8 @@ export async function GET(request: NextRequest) {
     if (numericFid && !forceRefresh) {
       const cached = await getCachedAnalysis(numericFid);
       if (cached) {
+        // Log this analysis view
+        await logAnalysisEvent(numericFid, cached.user?.username || null);
         return NextResponse.json<AnalyzeResponse>({
           success: true,
           data: cached,
@@ -62,7 +64,8 @@ export async function GET(request: NextRequest) {
     // Run analysis pipeline
     const result = await runAnalysisPipeline(identifier);
 
-    // Cache result
+    // Log this analysis and cache result
+    await logAnalysisEvent(result.user.fid, result.user.username);
     await setCachedAnalysis(result.user.fid, result.user.username, result);
 
     return NextResponse.json<AnalyzeResponse>({
