@@ -4,6 +4,7 @@ import type {
   CastMetrics,
   UserMetrics,
   EngagementWeights,
+  HourlyEngagement,
 } from '@/types';
 import { DEFAULT_ENGAGEMENT_WEIGHTS } from '@/types';
 
@@ -91,6 +92,104 @@ export function median(values: number[]): number {
 }
 
 /**
+ * Calculate engagement trend using linear regression
+ * Returns slope: positive = improving, negative = declining
+ */
+export function calculateEngagementTrend(
+  casts: Cast[],
+  metricsMap: Map<string, CastMetrics>
+): number | null {
+  if (casts.length < 5) return null; // Need enough data points
+
+  // Sort by timestamp ascending (oldest first)
+  const sortedCasts = [...casts].sort(
+    (a, b) => a.timestamp.getTime() - b.timestamp.getTime()
+  );
+
+  // Build data points: x = normalized time (0 to 1), y = engagement score
+  const startTime = sortedCasts[0].timestamp.getTime();
+  const endTime = sortedCasts[sortedCasts.length - 1].timestamp.getTime();
+  const timeRange = endTime - startTime;
+
+  if (timeRange === 0) return null;
+
+  const points = sortedCasts.map((cast) => ({
+    x: (cast.timestamp.getTime() - startTime) / timeRange,
+    y: metricsMap.get(cast.hash)?.engagementScore ?? 0,
+  }));
+
+  // Linear regression: y = mx + b
+  const n = points.length;
+  const sumX = points.reduce((sum, p) => sum + p.x, 0);
+  const sumY = points.reduce((sum, p) => sum + p.y, 0);
+  const sumXY = points.reduce((sum, p) => sum + p.x * p.y, 0);
+  const sumX2 = points.reduce((sum, p) => sum + p.x * p.x, 0);
+
+  const denominator = n * sumX2 - sumX * sumX;
+  if (denominator === 0) return null;
+
+  const slope = (n * sumXY - sumX * sumY) / denominator;
+
+  // Normalize slope relative to median engagement
+  const medianEngagement = median(points.map((p) => p.y));
+  if (medianEngagement === 0) return slope;
+
+  // Return as percentage change (slope normalized by median)
+  return slope / medianEngagement;
+}
+
+/**
+ * Analyze posting times to find best performing hours
+ */
+export function analyzePostingTimes(
+  casts: Cast[],
+  metricsMap: Map<string, CastMetrics>
+): { hourlyEngagement: HourlyEngagement[]; bestHour: number | null } {
+  if (casts.length === 0) {
+    return { hourlyEngagement: [], bestHour: null };
+  }
+
+  // Group casts by hour (UTC)
+  const hourlyData = new Map<number, { totalEngagement: number; count: number }>();
+
+  for (const cast of casts) {
+    const hour = cast.timestamp.getUTCHours();
+    const engagement = metricsMap.get(cast.hash)?.engagementScore ?? 0;
+
+    const existing = hourlyData.get(hour) || { totalEngagement: 0, count: 0 };
+    hourlyData.set(hour, {
+      totalEngagement: existing.totalEngagement + engagement,
+      count: existing.count + 1,
+    });
+  }
+
+  // Build hourly engagement array
+  const hourlyEngagement: HourlyEngagement[] = [];
+  let bestHour: number | null = null;
+  let bestAvg = -1;
+
+  for (const [hour, data] of hourlyData) {
+    const avgEngagement = data.count > 0 ? data.totalEngagement / data.count : 0;
+    hourlyEngagement.push({
+      hour,
+      avgEngagement,
+      castCount: data.count,
+    });
+
+    // Only consider hours with 2+ casts for "best hour"
+    if (data.count >= 2 && avgEngagement > bestAvg) {
+      bestAvg = avgEngagement;
+      bestHour = hour;
+    }
+  }
+
+  // Sort by hour for display
+  hourlyEngagement.sort((a, b) => a.hour - b.hour);
+
+  return { hourlyEngagement, bestHour };
+}
+
+/**
  * Compute user-level aggregate metrics
  */
 export function computeUserMetrics(
@@ -163,6 +262,12 @@ export function computeUserMetrics(
   const periodStart = timestamps.length > 0 ? new Date(Math.min(...timestamps)) : thirtyDaysAgo;
   const periodEnd = timestamps.length > 0 ? new Date(Math.max(...timestamps)) : now;
 
+  // Calculate engagement trend
+  const engagementTrend = calculateEngagementTrend(recentCasts, metricsMap);
+
+  // Analyze posting times
+  const { hourlyEngagement, bestHour } = analyzePostingTimes(recentCasts, metricsMap);
+
   return {
     fid,
     periodStart,
@@ -174,6 +279,9 @@ export function computeUserMetrics(
     repeatReplierRate,
     reciprocityRate,
     topThemes: [], // Populated by clustering module
+    engagementTrend,
+    bestPostingHour: bestHour,
+    hourlyEngagement,
   };
 }
 

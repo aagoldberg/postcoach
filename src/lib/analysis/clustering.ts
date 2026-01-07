@@ -162,6 +162,126 @@ function computeTfIdfVectors(
 }
 
 /**
+ * Calculate Euclidean distance between two vectors
+ */
+function euclideanDistance(a: number[], b: number[]): number {
+  let sum = 0;
+  for (let i = 0; i < a.length; i++) {
+    const diff = a[i] - b[i];
+    sum += diff * diff;
+  }
+  return Math.sqrt(sum);
+}
+
+/**
+ * Calculate silhouette score for a clustering result
+ * Higher score = better defined clusters (range: -1 to 1)
+ */
+function calculateSilhouetteScore(
+  vectors: number[][],
+  assignments: number[],
+  k: number
+): number {
+  if (vectors.length < 2 || k < 2) return 0;
+
+  // Group vectors by cluster
+  const clusters = new Map<number, number[]>();
+  for (let i = 0; i < assignments.length; i++) {
+    const clusterId = assignments[i];
+    if (!clusters.has(clusterId)) {
+      clusters.set(clusterId, []);
+    }
+    clusters.get(clusterId)!.push(i);
+  }
+
+  // Calculate silhouette for each point
+  const silhouettes: number[] = [];
+
+  for (let i = 0; i < vectors.length; i++) {
+    const myCluster = assignments[i];
+    const myClusterMembers = clusters.get(myCluster) || [];
+
+    // a(i) = average distance to same cluster (intra-cluster)
+    let a = 0;
+    if (myClusterMembers.length > 1) {
+      for (const j of myClusterMembers) {
+        if (i !== j) {
+          a += euclideanDistance(vectors[i], vectors[j]);
+        }
+      }
+      a /= myClusterMembers.length - 1;
+    }
+
+    // b(i) = minimum average distance to other clusters
+    let b = Infinity;
+    for (const [clusterId, members] of clusters) {
+      if (clusterId === myCluster || members.length === 0) continue;
+
+      let avgDist = 0;
+      for (const j of members) {
+        avgDist += euclideanDistance(vectors[i], vectors[j]);
+      }
+      avgDist /= members.length;
+
+      if (avgDist < b) {
+        b = avgDist;
+      }
+    }
+
+    // Handle edge case: single cluster or no other clusters
+    if (b === Infinity) b = 0;
+
+    // s(i) = (b - a) / max(a, b)
+    const maxAB = Math.max(a, b);
+    const s = maxAB > 0 ? (b - a) / maxAB : 0;
+    silhouettes.push(s);
+  }
+
+  // Return average silhouette score
+  return silhouettes.length > 0
+    ? silhouettes.reduce((sum, s) => sum + s, 0) / silhouettes.length
+    : 0;
+}
+
+/**
+ * Find optimal K using silhouette score
+ */
+function findOptimalK(
+  vectors: number[][],
+  minK: number = 2,
+  maxK: number = 7
+): number {
+  if (vectors.length < minK * 2) {
+    return Math.max(2, Math.floor(vectors.length / 2));
+  }
+
+  const actualMaxK = Math.min(maxK, Math.floor(vectors.length / 2));
+  let bestK = minK;
+  let bestScore = -1;
+
+  for (let k = minK; k <= actualMaxK; k++) {
+    try {
+      const result = kmeans(vectors, k, {
+        initialization: 'kmeans++',
+        maxIterations: 50, // Faster for K selection
+      });
+
+      const score = calculateSilhouetteScore(vectors, result.clusters, k);
+
+      if (score > bestScore) {
+        bestScore = score;
+        bestK = k;
+      }
+    } catch {
+      // If clustering fails for this K, skip it
+      continue;
+    }
+  }
+
+  return bestK;
+}
+
+/**
  * Extract top keywords from a cluster
  */
 function extractClusterKeywords(
@@ -279,9 +399,11 @@ export function clusterCasts(
     };
   }
 
-  // Run K-means
-  const adjustedK = Math.min(numClusters, Math.floor(nonEmptyVectors.length / 2));
-  const result = kmeans(nonEmptyVectors, adjustedK, {
+  // Find optimal K using silhouette score (ignores numClusters param, uses data-driven K)
+  const optimalK = findOptimalK(nonEmptyVectors, 2, Math.min(numClusters, 7));
+
+  // Run K-means with optimal K
+  const result = kmeans(nonEmptyVectors, optimalK, {
     initialization: 'kmeans++',
     maxIterations: 100,
   });

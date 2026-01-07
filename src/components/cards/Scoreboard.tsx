@@ -95,6 +95,38 @@ export function Scoreboard({ metrics, topTheme }: ScoreboardProps) {
               <span className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">per cast</span>
             </div>
           </div>
+
+          {metrics.engagementTrend !== null && (
+            <div className="flex justify-between items-baseline pb-4 border-b border-stone-100">
+              <span className="text-stone-400 font-medium text-sm flex items-center">
+                Trend
+                <InfoTip text="Is your engagement improving or declining over time? Based on linear regression of your recent posts." />
+              </span>
+              <div className="text-right">
+                <span className={`block text-2xl md:text-3xl font-black tracking-tighter ${metrics.engagementTrend >= 0 ? 'text-emerald-600' : 'text-rose-600'}`}>
+                  {metrics.engagementTrend >= 0 ? '↑' : '↓'} {Math.abs(metrics.engagementTrend * 100).toFixed(0)}%
+                </span>
+                <span className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">
+                  {metrics.engagementTrend >= 0 ? 'improving' : 'declining'}
+                </span>
+              </div>
+            </div>
+          )}
+
+          {metrics.bestPostingHour !== null && (
+            <div className="flex justify-between items-baseline pb-4 border-b border-stone-100">
+              <span className="text-stone-400 font-medium text-sm flex items-center">
+                Best Hour
+                <InfoTip text="The hour (UTC) when your posts get the highest average engagement. Try posting more at this time." />
+              </span>
+              <div className="text-right">
+                <span className="block text-2xl md:text-3xl font-black text-[#1a1f2e] tracking-tighter">
+                  {metrics.bestPostingHour.toString().padStart(2, '0')}:00
+                </span>
+                <span className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">UTC</span>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Top Topic - Simplified */}

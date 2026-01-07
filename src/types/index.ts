@@ -67,6 +67,12 @@ export interface CastMetrics {
   repliesCount: number;
 }
 
+export interface HourlyEngagement {
+  hour: number; // 0-23 UTC
+  avgEngagement: number;
+  castCount: number;
+}
+
 export interface UserMetrics {
   fid: number;
   periodStart: Date;
@@ -78,6 +84,10 @@ export interface UserMetrics {
   repeatReplierRate: number; // fraction of repliers who replied ≥2 times
   reciprocityRate: number | null; // fraction of accounts user replied to who also replied back
   topThemes: string[];
+  // Tier 1 additions
+  engagementTrend: number | null; // slope of engagement over time (positive = improving)
+  bestPostingHour: number | null; // 0-23 UTC hour with highest avg engagement
+  hourlyEngagement: HourlyEngagement[]; // engagement by hour of day
 }
 
 // ============= Content Analysis Types =============
