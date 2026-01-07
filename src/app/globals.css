@@ -129,22 +129,22 @@ p, li, span, div, strong, b {
   --monokai-yellow: #e6db74;
   --monokai-orange: #fd971f;
   --monokai-purple: #ae81ff;
-  --monokai-blue: #57aeff; /* Brighter Azure Blue */
-  --monokai-cyan: #57aeff; /* Aliased to Blue */
+  --monokai-blue: #6c99bb; /* True Monokai Blue */
+  --monokai-cyan: #66d9ef; /* True Monokai Cyan */
 
   --brand-primary: var(--monokai-pink);
-  --brand-secondary: var(--monokai-blue);
+  --brand-secondary: var(--monokai-cyan);
   --brand-accent: var(--monokai-purple);
   --font-sans: var(--font-geist-mono);
 
   /* --- TOGGLE DESIGN SYSTEM (Cyberpunk) --- */
   --toggle-bg: #000000;
-  --toggle-border: var(--monokai-blue);
-  --toggle-slider: var(--monokai-blue);
+  --toggle-border: var(--monokai-cyan);
+  --toggle-slider: var(--monokai-cyan);
   --toggle-text: #a8a29e;
   --toggle-text-active: #000000;
   --toggle-shadow: none;
-  --toggle-glow: 0 0 15px rgba(87, 174, 255, 0.3);
+  --toggle-glow: 0 0 15px rgba(102, 217, 239, 0.3);
 }
 
 .theme-cyberpunk * {
@@ -157,10 +157,10 @@ p, li, span, div, strong, b {
 /* Background Nuking - Force everything dark */
 .theme-cyberpunk,
 .theme-cyberpunk main,
-.theme-cyberpunk div,
+.theme-cyberpunk div:not(.color-swatch),
 .theme-cyberpunk section,
 .theme-cyberpunk .premium-card,
-.theme-cyberpunk .premium-card div, /* Force ALL children of cards to be black/transparent */
+.theme-cyberpunk .premium-card div:not(.color-swatch), /* Force ALL children of cards to be black/transparent */
 .theme-cyberpunk .bg-white,
 .theme-cyberpunk .bg-stone-50,
 .theme-cyberpunk .bg-slate-50,
@@ -177,9 +177,9 @@ p, li, span, div, strong, b {
 .theme-cyberpunk .bg-success-subtle,
 .theme-cyberpunk .bg-emerald-50 {
   background-color: transparent !important;
-  border: 2px solid var(--monokai-blue) !important;
-  box-shadow: 0 0 10px rgba(87, 174, 255, 0.2);
-  color: var(--monokai-blue) !important;
+  border: 2px solid var(--monokai-cyan) !important;
+  box-shadow: 0 0 10px rgba(102, 217, 239, 0.2);
+  color: var(--monokai-cyan) !important;
 }
 
 /* ERROR -> PINK */
@@ -197,9 +197,9 @@ p, li, span, div, strong, b {
 .theme-cyberpunk .premium-card .bg-info-subtle,
 .theme-cyberpunk .bg-info-subtle {
   background-color: transparent !important;
-  border: 2px solid var(--monokai-blue) !important;
-  box-shadow: 0 0 10px rgba(87, 174, 255, 0.2);
-  color: var(--monokai-blue) !important;
+  border: 2px solid var(--monokai-cyan) !important;
+  box-shadow: 0 0 10px rgba(102, 217, 239, 0.2);
+  color: var(--monokai-cyan) !important;
 }
 
 /* INDIGO -> PURPLE */
@@ -224,7 +224,7 @@ p, li, span, div, strong, b {
 /* Force Icons to match Border Color */
 .theme-cyberpunk .bg-success-subtle svg,
 .theme-cyberpunk .bg-success-subtle .icon-success {
-  color: var(--monokai-blue) !important;
+  color: var(--monokai-cyan) !important;
   fill: currentColor !important;
   width: 1.5rem !important;
   height: 1.5rem !important;
@@ -234,7 +234,7 @@ p, li, span, div, strong, b {
 
 .theme-cyberpunk .bg-info-subtle svg,
 .theme-cyberpunk .bg-info-subtle .icon-info {
-  color: var(--monokai-blue) !important;
+  color: var(--monokai-cyan) !important;
   fill: currentColor !important;
   width: 1.5rem !important;
   height: 1.5rem !important;
@@ -310,7 +310,7 @@ p, li, span, div, strong, b {
 .theme-cyberpunk .bg-\[\#18181b\],
 .theme-cyberpunk .bg-\[\#1a1f2e\] {
   background-color: #232530 !important;
-  border: 1px solid var(--monokai-blue) !important;
+  border: 1px solid var(--monokai-cyan) !important;
 }
 
 /* Text & Headings - CYBERPUNK ONLY */
@@ -331,9 +331,9 @@ p, li, span, div, strong, b {
 }
 
 .theme-cyberpunk a {
-  color: var(--monokai-blue) !important;
+  color: var(--monokai-cyan) !important;
   text-decoration: underline;
-  text-decoration-color: var(--monokai-blue);
+  text-decoration-color: var(--monokai-cyan);
 }
 
 .theme-cyberpunk .text-xs,
@@ -382,16 +382,16 @@ h1, h2, h3, h4 {
 
 /* Specific Context Quote Styling */
 .theme-cyberpunk .border-l-2 {
-  border-left-color: var(--monokai-blue) !important;
-  color: var(--monokai-blue) !important;
+  border-left-color: var(--monokai-cyan) !important;
+  color: var(--monokai-cyan) !important;
   opacity: 0.8;
 }
 
 /* Interactive Elements */
 .theme-cyberpunk button {
   background-color: transparent !important;
-  border: 1px solid var(--monokai-blue) !important;
-  color: var(--monokai-blue) !important;
+  border: 1px solid var(--monokai-cyan) !important;
+  color: var(--monokai-cyan) !important;
   font-weight: 900 !important;
   box-shadow: none !important;
   display: inline-flex !important;
@@ -400,13 +400,13 @@ h1, h2, h3, h4 {
 }
 
 .theme-cyberpunk button:hover {
-  background-color: var(--monokai-blue) !important;
+  background-color: var(--monokai-cyan) !important;
   color: #000000 !important;
-  box-shadow: 0 0 20px rgba(87, 174, 255, 0.6) !important;
+  box-shadow: 0 0 20px rgba(102, 217, 239, 0.6) !important;
 }
 
 .theme-cyberpunk button[type="submit"] {
-  background-color: var(--monokai-blue) !important;
+  background-color: var(--monokai-cyan) !important;
   color: #000000 !important;
 }
 
@@ -479,7 +479,7 @@ h1, h2, h3, h4 {
 
 .theme-cyberpunk .bg-info-subtle svg,
 .theme-cyberpunk .bg-info-subtle .icon-info {
-  color: var(--monokai-blue) !important;
+  color: var(--monokai-cyan) !important;
   fill: none !important;
   stroke: currentColor !important;
   stroke-width: 2px !important;
@@ -523,8 +523,8 @@ h1, h2, h3, h4 {
 /* Farcaster AuthKit Cyberpunk Theming */
 .farcaster-auth-cyberpunk [data-farcaster-auth-kit-signin-button] {
   background: transparent !important;
-  border: 1px solid var(--monokai-blue) !important;
-  color: var(--monokai-blue) !important;
+  border: 1px solid var(--monokai-cyan) !important;
+  color: var(--monokai-cyan) !important;
   border-radius: 0 !important;
   font-family: var(--font-geist-mono) !important;
   text-transform: uppercase !important;
@@ -535,14 +535,19 @@ h1, h2, h3, h4 {
 }
 
 .farcaster-auth-cyberpunk [data-farcaster-auth-kit-signin-button]:hover {
-  background: var(--monokai-blue) !important;
+  background: var(--monokai-cyan) !important;
   color: #000000 !important;
-  box-shadow: 0 0 15px rgba(87, 174, 255, 0.6) !important;
+  box-shadow: 0 0 15px rgba(102, 217, 239, 0.6) !important;
 }
 
 /* Scanlines Overlay */
+
 .theme-cyberpunk .scanlines {
+
   background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+
   background-size: 100% 3px;
+
   opacity: 0.3;
+
 }

@@ -72,14 +72,14 @@ export function LoginButton({ theme = 'sage' }: LoginButtonProps) {
             <img
               src={profile.pfpUrl}
               alt={profile.username || 'User'}
-              className={`w-7 h-7 md:w-8 md:h-8 object-cover ${theme === 'cyberpunk' ? 'rounded-none border border-[#00f0ff]' : 'rounded-full'}`}
+              className={`w-7 h-7 md:w-8 md:h-8 object-cover ${theme === 'cyberpunk' ? 'rounded-none border border-[#66D9EF]' : 'rounded-full'}`}
             />
           ) : isBaseAuthenticated ? (
             <div className={`w-7 h-7 md:w-8 md:h-8 flex items-center justify-center bg-[#0052ff] ${theme === 'cyberpunk' ? 'rounded-none' : 'rounded-full'}`}>
               <BaseLogo />
             </div>
           ) : null}
-          <span className={`hidden md:block text-sm font-medium ${theme === 'cyberpunk' ? 'text-[#00f0ff]' : 'text-[#1a1f2e]'}`}>
+          <span className={`hidden md:block text-sm font-medium ${theme === 'cyberpunk' ? 'text-[#66D9EF]' : 'text-[#1a1f2e]'}`}>
             {isFarcasterAuth && profile?.username ? `@${profile.username}` : formatAddress(baseUser?.address || '')}
           </span>
         </div>
@@ -87,7 +87,7 @@ export function LoginButton({ theme = 'sage' }: LoginButtonProps) {
           onClick={handleSignOut}
           className={`px-3 py-1.5 text-xs font-medium transition-all ${
             theme === 'cyberpunk'
-              ? 'text-[#ff0099] hover:text-white'
+              ? 'text-[#F92672] hover:text-[#F8F8F2]'
               : 'text-stone-400 hover:text-stone-600'
           }`}
         >
@@ -99,115 +99,100 @@ export function LoginButton({ theme = 'sage' }: LoginButtonProps) {
 
   // Unauthenticated state
   return (
-    <>
+    <div className="relative">
       <button
-        onClick={() => setShowModal(true)}
+        onClick={() => setShowModal(!showModal)}
         className={`px-4 py-2 text-sm font-medium transition-all ${
           theme === 'cyberpunk'
-            ? 'bg-[#00f0ff] text-black hover:bg-white'
+            ? 'bg-[#66D9EF] text-[#272822] hover:bg-[#F8F8F2]'
             : 'bg-[#1a1f2e] text-white hover:bg-[#2d364d] rounded-lg'
         }`}
       >
         Sign in
       </button>
 
-      {/* Modal */}
+      {/* Dropdown */}
       {showModal && (
-        <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
-          {/* Backdrop */}
-          <div
-            className={`absolute inset-0 ${theme === 'cyberpunk' ? 'bg-black/90' : 'bg-black/50'}`}
-            onClick={() => setShowModal(false)}
-          />
+        <div 
+          className="absolute top-full right-0 mt-2 w-64 p-2 z-[200] rounded-xl border overflow-hidden animate-in fade-in zoom-in-95 duration-200"
+          style={{
+            backgroundColor: 'var(--toggle-bg)',
+            borderColor: 'var(--toggle-border)',
+            boxShadow: 'var(--toggle-shadow)'
+          }}
+        >
+          {/* Header */}
+          <div className="px-3 py-2">
+            <p 
+              className="text-xs font-bold uppercase tracking-wider opacity-60"
+              style={{ color: 'var(--toggle-text)' }}
+            >
+              Sign in with
+            </p>
+          </div>
 
-          {/* Modal content */}
-          <div className={`relative w-full max-w-sm ${
-            theme === 'cyberpunk'
-              ? 'bg-[#0a0a0a] border border-[#00f0ff]/30'
-              : 'bg-white rounded-2xl shadow-2xl'
-          }`}>
-            {/* Header */}
-            <div className={`px-6 pt-6 pb-4 ${theme === 'cyberpunk' ? 'border-b border-[#00f0ff]/20' : ''}`}>
-              <div className="flex items-center justify-between">
-                <h2 className={`text-lg font-semibold ${theme === 'cyberpunk' ? 'text-white' : 'text-[#1a1f2e]'}`}>
-                  Sign in to PostCoach
-                </h2>
-                <button
-                  onClick={() => setShowModal(false)}
-                  className={`p-1 transition-colors ${theme === 'cyberpunk' ? 'text-[#00f0ff]/60 hover:text-[#00f0ff]' : 'text-stone-400 hover:text-stone-600'}`}
-                >
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-              <p className={`mt-1 text-sm ${theme === 'cyberpunk' ? 'text-[#00f0ff]/60' : 'text-stone-500'}`}>
-                Choose your preferred sign-in method
-              </p>
+          <div className="space-y-2">
+            {/* Farcaster */}
+            <div className={theme === 'cyberpunk' ? 'farcaster-auth-cyberpunk [&_button]:w-full [&_button]:justify-start' : '[&_button]:w-full [&_button]:justify-start'}>
+              <style jsx global>{`
+                .fc-authkit-signin-button button {
+                  width: 100% !important;
+                  justify-content: flex-start !important;
+                  padding: 10px 12px !important;
+                  border-radius: 0.75rem !important;
+                  border: 1px solid var(--toggle-border) !important;
+                  background-color: transparent !important;
+                  color: var(--toggle-text-active) !important;
+                  font-weight: 500 !important;
+                  font-size: 14px !important;
+                  transition: all 0.2s !important;
+                }
+                .fc-authkit-signin-button button:hover {
+                  background-color: var(--toggle-slider) !important;
+                }
+              `}</style>
+              <SignInButton />
             </div>
 
-            {/* Options */}
-            <div className="p-6 space-y-3">
-              {/* Farcaster */}
-              <div className={theme === 'cyberpunk' ? 'farcaster-auth-cyberpunk [&_button]:w-full [&_button]:justify-start' : '[&_button]:w-full [&_button]:justify-start'}>
-                <style jsx global>{`
-                  .fc-authkit-signin-button button {
-                    width: 100% !important;
-                    justify-content: flex-start !important;
-                    padding: 12px 16px !important;
-                    border-radius: ${theme === 'cyberpunk' ? '0' : '12px'} !important;
-                    font-weight: 500 !important;
-                    font-size: 14px !important;
-                  }
-                `}</style>
-                <SignInButton />
-              </div>
-
-              {/* Divider */}
-              <div className="relative py-2">
-                <div className={`absolute inset-0 flex items-center ${theme === 'cyberpunk' ? '' : ''}`}>
-                  <div className={`w-full border-t ${theme === 'cyberpunk' ? 'border-[#00f0ff]/20' : 'border-stone-200'}`} />
+            {/* Base */}
+            <button
+              onClick={handleBaseSignIn}
+              disabled={isLoading}
+              className="w-full flex items-center gap-3 px-3 py-2.5 font-medium text-sm transition-all rounded-xl border disabled:opacity-50"
+              style={{
+                borderColor: 'var(--toggle-border)',
+                color: 'var(--toggle-text-active)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'var(--toggle-slider)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'transparent';
+              }}
+            >
+              {isLoading ? (
+                <svg className="animate-spin h-5 w-5 text-current" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                </svg>
+              ) : (
+                <div className={`flex items-center justify-center w-5 h-5 ${theme === 'cyberpunk' ? 'text-[#F8F8F2]' : 'text-[#0052ff]'}`}>
+                  <BaseLogo />
                 </div>
-                <div className="relative flex justify-center">
-                  <span className={`px-3 text-xs ${theme === 'cyberpunk' ? 'bg-[#0a0a0a] text-[#00f0ff]/40' : 'bg-white text-stone-400'}`}>
-                    or
-                  </span>
-                </div>
-              </div>
-
-              {/* Base */}
-              <button
-                onClick={handleBaseSignIn}
-                disabled={isLoading}
-                className={`w-full flex items-center gap-3 px-4 py-3 font-medium text-sm transition-all disabled:opacity-50 ${
-                  theme === 'cyberpunk'
-                    ? 'bg-[#0052ff] text-white hover:bg-[#0066ff] border border-[#0052ff]'
-                    : 'bg-white text-[#1a1f2e] hover:bg-stone-50 border border-stone-200 rounded-xl'
-                }`}
-              >
-                {isLoading ? (
-                  <svg className="animate-spin h-5 w-5 text-current" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                  </svg>
-                ) : (
-                  <div className={`flex items-center justify-center w-5 h-5 ${theme === 'cyberpunk' ? 'text-white' : 'text-[#0052ff]'}`}>
-                    <BaseLogo />
-                  </div>
-                )}
-                <span>Continue with Base</span>
-              </button>
-            </div>
-
-            {/* Footer */}
-            <div className={`px-6 pb-6 ${theme === 'cyberpunk' ? '' : ''}`}>
-              <p className={`text-xs text-center ${theme === 'cyberpunk' ? 'text-[#00f0ff]/40' : 'text-stone-400'}`}>
-                By signing in, you agree to our terms of service
-              </p>
-            </div>
+              )}
+              <span>Base</span>
+            </button>
           </div>
         </div>
       )}
-    </>
+      
+      {/* Backdrop to close dropdown */}
+      {showModal && (
+        <div 
+          className="fixed inset-0 z-[190]" 
+          onClick={() => setShowModal(false)}
+        />
+      )}
+    </div>
   );
 }
