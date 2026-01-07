@@ -1,32 +1,26 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { SignInButton, useProfile, useSignIn } from '@farcaster/auth-kit';
+import { useProfile, useSignIn } from '@farcaster/auth-kit';
 import { useBaseAuth } from '@/app/providers';
 
 interface LoginButtonProps {
   theme?: 'sage' | 'cyberpunk';
 }
 
-// Farcaster logo SVG
+// Farcaster logo
 const FarcasterLogo = () => (
-  <svg width="20" height="20" viewBox="0 0 1000 1000" fill="currentColor">
-    <path d="M257.778 155.556H742.222V844.444H671.111V528.889H670.414C662.554 441.677 589.258 373.333 500 373.333C410.742 373.333 337.446 441.677 329.586 528.889H328.889V844.444H257.778V155.556Z"/>
-    <path d="M128.889 253.333L157.778 351.111H182.222V746.667C169.949 746.667 160 756.616 160 768.889V795.556H155.556C143.283 795.556 133.333 805.505 133.333 817.778V844.444H382.222V817.778C382.222 805.505 372.273 795.556 360 795.556H355.556V768.889C355.556 756.616 345.606 746.667 333.333 746.667H306.667V253.333H128.889Z"/>
-    <path d="M693.333 746.667C681.06 746.667 671.111 756.616 671.111 768.889V795.556H666.667C654.394 795.556 644.444 805.505 644.444 817.778V844.444H893.333V817.778C893.333 805.505 883.384 795.556 871.111 795.556H866.667V768.889C866.667 756.616 856.717 746.667 844.444 746.667V351.111H868.889L897.778 253.333H720V746.667H693.333Z"/>
-  </svg>
+  <img src="/logos/farcaster/farcaster-logo.png" alt="Farcaster" width={20} height={20} className="object-contain" />
 );
 
-// Base logo SVG
+// Base logo
 const BaseLogo = () => (
-  <svg width="20" height="20" viewBox="0 0 111 111" fill="currentColor">
-    <path d="M55.5 111C86.15 111 111 86.15 111 55.5C111 24.85 86.15 0 55.5 0C26.1851 0 2.18982 22.6106 0.0615234 51.4103H73.4718V59.5897H0.0615234C2.18982 88.3894 26.1851 111 55.5 111Z"/>
-  </svg>
+  <img src="/logos/base/base-logo.png" alt="Base" width={16} height={16} className="object-contain" />
 );
 
 export function LoginButton({ theme = 'sage' }: LoginButtonProps) {
   const { isAuthenticated: isFarcasterAuth, profile } = useProfile();
-  const { signOut: signOutFarcaster } = useSignIn({});
+  const { signIn: signInFarcaster, signOut: signOutFarcaster } = useSignIn({});
   const { baseUser, isBaseAuthenticated, signInWithBase, signOutBase } = useBaseAuth();
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -133,26 +127,23 @@ export function LoginButton({ theme = 'sage' }: LoginButtonProps) {
 
           <div className="space-y-2">
             {/* Farcaster */}
-            <div className={theme === 'cyberpunk' ? 'farcaster-auth-cyberpunk [&_button]:w-full [&_button]:justify-start' : '[&_button]:w-full [&_button]:justify-start'}>
-              <style jsx global>{`
-                .fc-authkit-signin-button button {
-                  width: 100% !important;
-                  justify-content: flex-start !important;
-                  padding: 10px 12px !important;
-                  border-radius: 0.75rem !important;
-                  border: 1px solid var(--toggle-border) !important;
-                  background-color: transparent !important;
-                  color: var(--toggle-text-active) !important;
-                  font-weight: 500 !important;
-                  font-size: 14px !important;
-                  transition: all 0.2s !important;
-                }
-                .fc-authkit-signin-button button:hover {
-                  background-color: var(--toggle-slider) !important;
-                }
-              `}</style>
-              <SignInButton />
-            </div>
+            <button
+              onClick={() => signInFarcaster()}
+              className="w-full flex items-center gap-3 px-3 py-2.5 font-medium text-sm transition-all rounded-xl border"
+              style={{
+                borderColor: 'var(--toggle-border)',
+                color: 'var(--toggle-text-active)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'var(--toggle-slider)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'transparent';
+              }}
+            >
+              <FarcasterLogo />
+              <span>Farcaster</span>
+            </button>
 
             {/* Base */}
             <button
@@ -176,9 +167,7 @@ export function LoginButton({ theme = 'sage' }: LoginButtonProps) {
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                 </svg>
               ) : (
-                <div className={`flex items-center justify-center w-5 h-5 ${theme === 'cyberpunk' ? 'text-[#F8F8F2]' : 'text-[#0052ff]'}`}>
-                  <BaseLogo />
-                </div>
+                <BaseLogo />
               )}
               <span>Base</span>
             </button>
