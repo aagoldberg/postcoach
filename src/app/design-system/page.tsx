@@ -91,13 +91,13 @@ export default function DesignSystemPage() {
           <section className="space-y-6 relative z-10">
             <h2 className="text-xs font-bold uppercase tracking-widest text-[#ae81ff]">Palette</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 font-mono text-xs">
-              <div className="p-4 bg-[#f92672] text-black">Pink #f92672</div>
-              <div className="p-4 bg-[#a6e22e] text-black">Green #a6e22e</div>
-              <div className="p-4 bg-[#e6db74] text-black">Yellow #e6db74</div>
-              <div className="p-4 bg-[#fd971f] text-black">Orange #fd971f</div>
-              <div className="p-4 bg-[#ae81ff] text-black">Purple #ae81ff</div>
-              <div className="p-4 bg-[#6c99bb] text-black">Blue #6c99bb</div>
-              <div className="p-4 bg-[#66d9ef] text-black">Cyan #66d9ef</div>
+              <div className="p-4 bg-[#f92672] text-[#1a1f2e] font-bold">Pink #f92672</div>
+              <div className="p-4 bg-[#a6e22e] text-[#1a1f2e] font-bold">Green #a6e22e</div>
+              <div className="p-4 bg-[#e6db74] text-[#1a1f2e] font-bold">Yellow #e6db74</div>
+              <div className="p-4 bg-[#fd971f] text-[#1a1f2e] font-bold">Orange #fd971f</div>
+              <div className="p-4 bg-[#ae81ff] text-[#1a1f2e] font-bold">Purple #ae81ff</div>
+              <div className="p-4 bg-[#6c99bb] text-[#1a1f2e] font-bold">Blue #6c99bb</div>
+              <div className="p-4 bg-[#66d9ef] text-[#1a1f2e] font-bold">Cyan #66d9ef</div>
             </div>
           </section>
 

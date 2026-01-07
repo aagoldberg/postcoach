@@ -272,12 +272,39 @@ p, li, span, div, strong, b {
   border: 1px solid #3e4451 !important;
 }
 
-/* Hardcoded Block Nuking */
-.theme-cyberpunk .bg-\[\#4f46e5\],
-.theme-cyberpunk .bg-indigo-600 {
-  background-color: var(--monokai-purple) !important;
+/* Badges - Cyberpunk Wireframe */
+.theme-cyberpunk .bg-stone-50.border-stone-100.text-stone-400 { /* Default */
+  background-color: transparent !important;
+  border: 1px solid #75715e !important; /* Monokai Comment Grey */
+  color: #75715e !important;
+}
+
+.theme-cyberpunk .bg-emerald-50\/50 { /* Success */
+  background-color: transparent !important;
+  border: 1px solid var(--monokai-cyan) !important;
+  color: var(--monokai-cyan) !important;
+  box-shadow: 0 0 5px rgba(102, 217, 239, 0.2);
+}
+
+.theme-cyberpunk .bg-amber-50\/50 { /* Warning */
+  background-color: transparent !important;
+  border: 1px solid var(--monokai-orange) !important;
+  color: var(--monokai-orange) !important;
+  box-shadow: 0 0 5px rgba(253, 151, 31, 0.2);
+}
+
+.theme-cyberpunk .bg-rose-50\/50 { /* Error */
+  background-color: transparent !important;
+  border: 1px solid var(--monokai-pink) !important;
+  color: var(--monokai-pink) !important;
+  box-shadow: 0 0 5px rgba(249, 38, 114, 0.2);
+}
+
+.theme-cyberpunk .bg-indigo-50\/50 { /* Info */
+  background-color: transparent !important;
   border: 1px solid var(--monokai-purple) !important;
-  box-shadow: 0 0 15px rgba(174, 129, 255, 0.4) !important;
+  color: var(--monokai-purple) !important;
+  box-shadow: 0 0 5px rgba(174, 129, 255, 0.2);
 }
 
 .theme-cyberpunk .bg-\[\#18181b\],
