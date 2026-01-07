@@ -39,4 +39,162 @@ body {
   .ink-border {
     @apply border-stone-100;
   }
+
+  /* Cyberpunk Specific Utilities */
+  .theme-cyberpunk .premium-card {
+    background-color: #000 !important;
+    border: 1px solid #333 !important;
+    box-shadow: 0 0 20px -5px rgba(0,240,255,0.1) !important;
+    border-radius: 0 !important;
+  }
+  .theme-cyberpunk .premium-card:hover {
+    box-shadow: 0 0 30px -5px rgba(0,240,255,0.2) !important;
+  }
+
+  .theme-cyberpunk .serif-heading {
+    font-family: var(--font-mono) !important;
+    font-style: normal !important;
+    letter-spacing: -0.025em !important;
+  }
+
+  .theme-cyberpunk .scanlines {
+    background: linear-gradient(
+      to bottom,
+      rgba(255,255,255,0),
+      rgba(255,255,255,0) 50%,
+      rgba(0,0,0,0.2) 50%,
+      rgba(0,0,0,0.2)
+    );
+    background-size: 100% 4px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 10;
+    opacity: 0.15;
+  }
+  /* Cyberpunk Button Overrides */
+  .theme-cyberpunk button[type="submit"],
+  .theme-cyberpunk .bg-\[\#1a1f2e\] {
+    background-color: #00f0ff !important;
+    color: #000000 !important;
+    font-family: var(--font-geist-mono) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.2em !important;
+    font-weight: 900 !important;
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.4) !important;
+    border: none !important;
+  }
+
+  .theme-cyberpunk button[type="submit"]:hover {
+    background-color: #fff !important;
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.6) !important;
+  }
+
+  /* Cyberpunk Input Overrides - High Specificity */
+  body.theme-cyberpunk input[type="text"],
+  .theme-cyberpunk input {
+    background-color: #000000 !important;
+    color: #00f0ff !important;
+    border: 2px solid #00f0ff !important;
+    font-family: var(--font-geist-mono) !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.15em !important;
+    text-transform: uppercase !important;
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.2) !important;
+  }
+
+  body.theme-cyberpunk input::placeholder,
+  .theme-cyberpunk input::placeholder {
+    color: #00f0ff !important;
+    opacity: 0.5 !important;
+    text-shadow: 0 0 5px rgba(0, 240, 255, 0.5);
+  }
+
+  body.theme-cyberpunk input:focus,
+  .theme-cyberpunk input:focus {
+    border-color: #fff !important;
+    box-shadow: 0 0 25px rgba(0, 240, 255, 0.6) !important;
+    color: #fff !important;
+  }
+}
+
+/* Cyberpunk Theme Overrides */
+.theme-cyberpunk {
+  --background: #050505;
+  --foreground: #e0f2fe;
+  
+  --brand-primary: #00f0ff; /* Neon Cyan */
+  --brand-secondary: #ff0099; /* Hot Magenta */
+  --brand-accent: #facc15; /* Cyber Yellow */
+  
+  --font-sans: var(--font-geist-mono);
+  --font-serif: var(--font-geist-mono);
+}
+
+.theme-cyberpunk .bg-white {
+  background-color: #000000 !important;
+  border: 1px solid #333 !important;
+}
+
+.theme-cyberpunk .bg-stone-50,
+.theme-cyberpunk .bg-slate-50,
+.theme-cyberpunk .bg-zinc-50 {
+  background-color: #111 !important;
+  border-color: #333 !important;
+}
+
+.theme-cyberpunk .text-slate-900,
+.theme-cyberpunk .text-\[\#1a1f2e\] {
+  color: #fff !important;
+}
+
+.theme-cyberpunk .text-stone-400,
+.theme-cyberpunk .text-stone-500,
+.theme-cyberpunk .text-slate-500 {
+  color: #888 !important;
+}
+
+/* Map Emerald -> Cyan */
+.theme-cyberpunk .text-emerald-600,
+.theme-cyberpunk .text-teal-600 {
+  color: #00f0ff !important;
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+}
+
+.theme-cyberpunk .bg-emerald-500,
+.theme-cyberpunk .bg-teal-500 {
+  background-color: #00f0ff !important;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.5) !important;
+}
+
+/* Map Rose -> Magenta */
+.theme-cyberpunk .text-rose-600,
+.theme-cyberpunk .text-rose-500 {
+  color: #ff0099 !important;
+  text-shadow: 0 0 10px rgba(255, 0, 153, 0.5);
+}
+
+.theme-cyberpunk .bg-rose-500 {
+  background-color: #ff0099 !important;
+  box-shadow: 0 0 15px rgba(255, 0, 153, 0.5) !important;
+}
+
+/* Force sharp corners */
+.theme-cyberpunk * {
+  border-radius: 0 !important;
+}
+
+/* Card Glows */
+.theme-cyberpunk .premium-card,
+.theme-cyberpunk .overflow-hidden {
+  border: 1px solid #222 !important;
+  box-shadow: none !important;
+}
+
+.theme-cyberpunk .premium-card:hover {
+  border-color: #00f0ff !important;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.2) !important;
 }
