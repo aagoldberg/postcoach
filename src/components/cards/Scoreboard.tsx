@@ -96,7 +96,7 @@ export function Scoreboard({ metrics, topTheme }: ScoreboardProps) {
             </div>
           </div>
 
-          {metrics.engagementTrend !== null && (
+          {metrics.engagementTrend != null && (
             <div className="flex justify-between items-baseline pb-4 border-b border-stone-100">
               <span className="text-stone-400 font-medium text-sm flex items-center">
                 Trend
@@ -113,7 +113,7 @@ export function Scoreboard({ metrics, topTheme }: ScoreboardProps) {
             </div>
           )}
 
-          {metrics.bestPostingHour !== null && (
+          {metrics.bestPostingHour != null && (
             <div className="flex justify-between items-baseline pb-4 border-b border-stone-100">
               <span className="text-stone-400 font-medium text-sm flex items-center">
                 Best Hour
@@ -121,7 +121,7 @@ export function Scoreboard({ metrics, topTheme }: ScoreboardProps) {
               </span>
               <div className="text-right">
                 <span className="block text-2xl md:text-3xl font-black text-[#1a1f2e] tracking-tighter">
-                  {metrics.bestPostingHour.toString().padStart(2, '0')}:00
+                  {String(metrics.bestPostingHour).padStart(2, '0')}:00
                 </span>
                 <span className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">UTC</span>
               </div>
