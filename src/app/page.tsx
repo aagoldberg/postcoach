@@ -115,28 +115,28 @@ export default function Home() {
         </div>
       </div>
 
-      <main className="container mx-auto px-4 py-24 max-w-6xl relative z-10">
+      <main className="container mx-auto px-4 py-8 md:py-24 max-w-6xl relative z-10">
         {state === 'idle' && (
-          <div className="flex flex-col items-center justify-center py-32 animate-in fade-in slide-in-from-bottom-12 duration-1000">
-            <div className="text-center space-y-16 max-w-3xl mx-auto">
-              <div className="space-y-8">
+          <div className="flex flex-col items-center justify-center py-12 md:py-32 animate-in fade-in slide-in-from-bottom-12 duration-1000">
+            <div className="text-center space-y-8 md:space-y-16 max-w-3xl mx-auto w-full">
+              <div className="space-y-6 md:space-y-8">
                 <div className={`inline-flex items-center gap-3 px-5 py-2 rounded-full border shadow-sm mb-4 ${theme === 'cyberpunk' ? 'bg-black border-[#00f0ff] text-[#00f0ff]' : 'bg-white border-stone-200 text-stone-400'}`}>
                   <span className={`w-2 h-2 rounded-full animate-pulse ${theme === 'cyberpunk' ? 'bg-[#ff0099]' : 'bg-[#4b5e54]'}`}></span>
                   <span className="text-[10px] font-bold uppercase tracking-[0.3em]">Farcaster Intelligence Report</span>
                 </div>
-                <h1 className={`text-8xl md:text-9xl font-black tracking-tighter serif-heading italic ${theme === 'cyberpunk' ? 'text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]' : 'text-[#1a1f2e]'}`}>
+                <h1 className={`text-5xl md:text-9xl font-black tracking-tighter serif-heading italic ${theme === 'cyberpunk' ? 'text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]' : 'text-[#1a1f2e]'}`}>
                   PostCoach
                 </h1>
-                <p className={`text-2xl font-medium leading-relaxed max-w-xl mx-auto ${theme === 'cyberpunk' ? 'text-[#00f0ff] font-mono tracking-widest drop-shadow-[0_0_5px_rgba(0,240,255,0.8)]' : 'text-stone-400'}`}>
+                <p className={`text-lg md:text-2xl font-medium leading-relaxed max-w-xl mx-auto px-4 ${theme === 'cyberpunk' ? 'text-[#00f0ff] font-mono tracking-widest drop-shadow-[0_0_5px_rgba(0,240,255,0.8)]' : 'text-stone-400'}`}>
                   AI-powered insights for Farcaster creators
                 </p>
               </div>
 
-              <div className="w-full max-w-lg mx-auto pt-8">
+              <div className="w-full max-w-lg mx-auto pt-4 md:pt-8 px-4">
                 <AnalysisForm onSubmit={runAnalysis} isLoading={false} />
               </div>
 
-              <div className={`pt-32 flex items-center justify-center gap-16 text-[10px] font-bold uppercase tracking-[0.4em] ${theme === 'cyberpunk' ? 'text-[#ff0099]' : 'text-stone-300'}`}>
+              <div className={`pt-16 md:pt-32 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 text-[10px] font-bold uppercase tracking-[0.4em] ${theme === 'cyberpunk' ? 'text-[#ff0099]' : 'text-stone-300'}`}>
                 <div className="flex flex-col items-center gap-4">
                   <div className={`w-12 h-12 rounded-[1.5rem] border shadow-sm flex items-center justify-center ${theme === 'cyberpunk' ? 'bg-black border-[#ff0099] text-[#ff0099] rounded-none' : 'bg-white border-stone-100 text-[#1a1f2e]'}`}>
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 01-2-2z" /></svg>
