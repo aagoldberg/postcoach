@@ -89,7 +89,7 @@ export function AnalysisResults({ result, onReset, onRefresh }: AnalysisResultsP
           />
 
           {/* Deep Dives */}
-          <div className="space-y-12">
+          <div id="deep-dives" className="space-y-12">
             {topCasts.length > 0 && (
               <FeedbackSection
                 title="Success Vectors"

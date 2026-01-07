@@ -28,7 +28,32 @@ export const castEmbeddings = pgTable('postcoach_cast_embeddings', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 
+// Users table - stores authenticated Farcaster users
+export const users = pgTable('postcoach_users', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  fid: integer('fid').notNull().unique(),
+  username: text('username').notNull(),
+  displayName: text('display_name'),
+  pfpUrl: text('pfp_url'),
+  custodyAddress: text('custody_address'), // Farcaster wallet address
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  lastLoginAt: timestamp('last_login_at').defaultNow().notNull(),
+});
+
+// Track which analyses a user has viewed (history)
+export const userAnalysisHistory = pgTable('postcoach_user_analysis_history', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  userId: uuid('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
+  analyzedFid: integer('analyzed_fid').notNull(),
+  analyzedUsername: text('analyzed_username'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
 export type AnalysisCache = typeof analysisCache.$inferSelect;
 export type NewAnalysisCache = typeof analysisCache.$inferInsert;
 export type RateLimit = typeof rateLimits.$inferSelect;
 export type CastEmbedding = typeof castEmbeddings.$inferSelect;
+export type User = typeof users.$inferSelect;
+export type NewUser = typeof users.$inferInsert;
+export type UserAnalysisHistory = typeof userAnalysisHistory.$inferSelect;
+export type NewUserAnalysisHistory = typeof userAnalysisHistory.$inferInsert;
