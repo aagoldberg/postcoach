@@ -90,30 +90,37 @@ export default function Home() {
         <LoginButton theme={theme} />
 
         {/* Cyber-Switch Toggle */}
-        <div className={`relative flex p-1 border transition-all duration-500
-          ${theme === 'cyberpunk'
-            ? 'bg-black border-[#00f0ff] shadow-[0_0_15px_rgba(0,240,255,0.3)]'
-            : 'bg-white border-stone-200 shadow-sm'}`}>
-
+        <div 
+          className="relative flex p-1 border transition-all duration-500"
+          style={{
+            backgroundColor: 'var(--toggle-bg)',
+            borderColor: 'var(--toggle-border)',
+            boxShadow: 'var(--toggle-glow)'
+          }}
+        >
+          
           {/* Sliding Background */}
-          <div className={`absolute top-1 bottom-1 w-[calc(50%-4px)] transition-all duration-300
-            ${theme === 'sage'
-              ? 'left-1 bg-stone-100'
-              : 'left-[calc(50%+2px)] bg-[#00f0ff] shadow-[0_0_10px_#00f0ff]'}`}>
+          <div 
+            className={`absolute top-1 bottom-1 w-[calc(50%-4px)] transition-all duration-300 shadow-sm ${theme === 'sage' ? 'left-1' : 'left-[calc(50%+2px)]'}`}
+            style={{
+              backgroundColor: 'var(--toggle-slider)',
+              boxShadow: 'var(--toggle-shadow)'
+            }}
+          >
           </div>
 
-          <button
+          <button 
             onClick={() => setTheme('sage')}
-            className={`relative z-10 px-4 py-1.5 md:px-6 md:py-2 text-[8px] md:text-[10px] font-mono font-bold uppercase tracking-[0.2em] transition-colors duration-300
-              ${theme === 'sage' ? 'text-[#1a1f2e]' : 'text-stone-400 hover:text-stone-600'}`}
+            className="relative z-10 px-4 py-1.5 md:px-6 md:py-2 text-[8px] md:text-[10px] font-mono font-bold uppercase tracking-[0.2em] transition-colors duration-300"
+            style={{ color: theme === 'sage' ? 'var(--toggle-text-active)' : 'var(--toggle-text)' }}
           >
             Sage
           </button>
 
-          <button
+          <button 
             onClick={() => setTheme('cyberpunk')}
-            className={`relative z-10 px-4 py-1.5 md:px-6 md:py-2 text-[8px] md:text-[10px] font-mono font-bold uppercase tracking-[0.2em] transition-colors duration-300
-              ${theme === 'cyberpunk' ? 'text-black' : 'text-stone-400 hover:text-[#00f0ff]'}`}
+            className="relative z-10 px-4 py-1.5 md:px-6 md:py-2 text-[8px] md:text-[10px] font-mono font-bold uppercase tracking-[0.2em] transition-colors duration-300"
+            style={{ color: theme === 'cyberpunk' ? 'var(--toggle-text-active)' : 'var(--toggle-text)' }}
           >
             Cyber
           </button>
