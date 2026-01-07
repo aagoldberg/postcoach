@@ -28,14 +28,18 @@ export const castEmbeddings = pgTable('postcoach_cast_embeddings', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 
-// Users table - stores authenticated Farcaster users
+// Users table - stores authenticated users (Farcaster or Base)
 export const users = pgTable('postcoach_users', {
   id: uuid('id').defaultRandom().primaryKey(),
-  fid: integer('fid').notNull().unique(),
-  username: text('username').notNull(),
+  authProvider: text('auth_provider').notNull().default('farcaster'), // 'farcaster' | 'base'
+  // Farcaster fields
+  fid: integer('fid').unique(), // Optional for Base users
+  username: text('username'), // Farcaster username or Basename
   displayName: text('display_name'),
   pfpUrl: text('pfp_url'),
-  custodyAddress: text('custody_address'), // Farcaster wallet address
+  // Wallet fields (used by both)
+  walletAddress: text('wallet_address').unique(), // Primary for Base, custody for Farcaster
+  // Timestamps
   createdAt: timestamp('created_at').defaultNow().notNull(),
   lastLoginAt: timestamp('last_login_at').defaultNow().notNull(),
 });
