@@ -83,26 +83,33 @@ export default function Home() {
     <div className={`min-h-screen transition-colors duration-500 ${theme === 'cyberpunk' ? 'theme-cyberpunk bg-[#050505] text-[#00f0ff]' : 'bg-[#f2f5f3] text-[#1a1f2e]'} font-sans`}>
       {theme === 'cyberpunk' && <div className="scanlines fixed inset-0 pointer-events-none z-50"></div>}
       
-      {/* Redesigned Theme Toggle */}
+      {/* Cyber-Switch Toggle */}
       <div className="fixed top-8 right-8 z-[100]">
-        <div className={`p-1 rounded-2xl border flex items-center transition-all duration-500 shadow-xl
-          ${theme === 'cyberpunk' ? 'bg-black border-[#00f0ff] shadow-[0_0_20px_rgba(0,240,255,0.2)]' : 'bg-white border-stone-200 shadow-stone-200/50'}`}>
+        <div className={`relative flex p-1 border transition-all duration-500
+          ${theme === 'cyberpunk' 
+            ? 'bg-black border-[#00f0ff] shadow-[0_0_15px_rgba(0,240,255,0.3)]' 
+            : 'bg-white border-stone-200 shadow-sm'}`}>
           
+          {/* Sliding Background */}
+          <div className={`absolute top-1 bottom-1 w-[calc(50%-4px)] transition-all duration-300
+            ${theme === 'sage' 
+              ? 'left-1 bg-stone-100' 
+              : 'left-[calc(50%+2px)] bg-[#00f0ff] shadow-[0_0_10px_#00f0ff]'}`}>
+          </div>
+
           <button 
             onClick={() => setTheme('sage')}
-            className={`px-5 py-2 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-300 flex items-center gap-2
-              ${theme === 'sage' ? 'bg-stone-100 text-[#1a1f2e]' : 'text-stone-500 hover:text-stone-300'}`}
+            className={`relative z-10 px-6 py-2 text-[10px] font-mono font-bold uppercase tracking-[0.2em] transition-colors duration-300
+              ${theme === 'sage' ? 'text-[#1a1f2e]' : 'text-stone-400 hover:text-stone-600'}`}
           >
-            <span className={`w-1.5 h-1.5 rounded-full ${theme === 'sage' ? 'bg-[#4b5e54]' : 'bg-transparent border border-stone-500'}`}></span>
             Sage
           </button>
 
           <button 
             onClick={() => setTheme('cyberpunk')}
-            className={`px-5 py-2 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-300 flex items-center gap-2
-              ${theme === 'cyberpunk' ? 'bg-[#00f0ff] text-black shadow-[0_0_15px_rgba(0,240,255,0.5)]' : 'text-stone-400 hover:text-[#1a1f2e]'}`}
+            className={`relative z-10 px-6 py-2 text-[10px] font-mono font-bold uppercase tracking-[0.2em] transition-colors duration-300
+              ${theme === 'cyberpunk' ? 'text-black' : 'text-stone-400 hover:text-[#00f0ff]'}`}
           >
-            <span className={`w-1.5 h-1.5 rounded-full ${theme === 'cyberpunk' ? 'bg-black' : 'bg-transparent border border-stone-400'}`}></span>
             Cyber
           </button>
         </div>

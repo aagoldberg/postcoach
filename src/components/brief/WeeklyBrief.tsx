@@ -45,36 +45,30 @@ Generated with PostCoach`;
 
   return (
     <section>
-      <div className="flex items-center justify-between mb-4">
-        <div>
-          <h2 className="text-xl font-semibold text-zinc-900 dark:text-zinc-100">
-            Your Brief
-          </h2>
-          <p className="text-sm text-zinc-500 dark:text-zinc-400">
-            Based on your last 30 days
-          </p>
-        </div>
-        <div className="flex gap-2">
-          <Button variant="outline" size="sm" onClick={copyToClipboard}>
-            Copy Text
-          </Button>
-          {onShareImage && (
-            <Button variant="primary" size="sm" onClick={onShareImage}>
-              Share as Image
-            </Button>
-          )}
-        </div>
-      </div>
-
       <div ref={briefRef} id="weekly-brief-card">
         <Card className="overflow-hidden shadow-[0_40px_80px_-15px_rgba(0,0,0,0.08)]">
           <div className="p-8 pb-4 border-b border-stone-50">
             <div className="flex items-center justify-between mb-6">
-              <span className="text-stone-400 font-bold text-[10px] uppercase tracking-[0.3em]">@{username}</span>
-              <span className="text-stone-400 font-bold text-[10px] uppercase tracking-[0.3em]">
-                {new Date(brief.periodStart).toLocaleDateString()} — {new Date(brief.periodEnd).toLocaleDateString()}
-              </span>
+              <div className="flex gap-4">
+                <span className="text-stone-400 font-bold text-[10px] uppercase tracking-[0.3em]">@{username}</span>
+                <span className="text-stone-400 font-bold text-[10px] uppercase tracking-[0.3em]">
+                  {new Date(brief.periodStart).toLocaleDateString()} — {new Date(brief.periodEnd).toLocaleDateString()}
+                </span>
+              </div>
+              
+              {/* Actions moved here */}
+              <div className="flex gap-2">
+                <Button variant="outline" size="sm" onClick={copyToClipboard} className="h-8 border-stone-200 text-stone-400 hover:text-stone-600 hover:border-stone-300">
+                  Copy
+                </Button>
+                {onShareImage && (
+                  <Button variant="outline" size="sm" onClick={onShareImage} className="h-8 border-stone-200 text-stone-400 hover:text-stone-600 hover:border-stone-300">
+                    Share
+                  </Button>
+                )}
+              </div>
             </div>
+            
             <h3 className="text-4xl font-black text-[#1a1f2e] tracking-tighter serif-heading mb-1">The Brief</h3>
             <p className="text-stone-400 text-[10px] font-bold uppercase tracking-[0.2em]">Based on your last 30 days of activity</p>
           </div>

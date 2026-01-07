@@ -11,7 +11,7 @@ interface UserHeaderProps {
 export function UserHeader({ user }: UserHeaderProps) {
   return (
     <Card className="flex flex-col items-center gap-4 p-8 bg-white text-center overflow-visible">
-      <div className="relative w-24 h-24 -mt-16 rounded-[2rem] overflow-hidden border-[6px] border-white shadow-xl flex-shrink-0">
+      <div className="relative w-24 h-24 rounded-[2rem] overflow-hidden border-[6px] border-white shadow-xl flex-shrink-0">
         {user.pfpUrl ? (
           <Image
             src={user.pfpUrl}
