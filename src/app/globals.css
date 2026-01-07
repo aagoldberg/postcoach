@@ -120,8 +120,8 @@ p, li, span, div, strong, b {
   --monokai-yellow: #e6db74;
   --monokai-orange: #fd971f;
   --monokai-purple: #ae81ff;
-  --monokai-blue: #6c99bb; /* Sublime Blue */
-  --monokai-cyan: #6c99bb; /* Aliased to Sublime Blue to eradicate electric cyan */
+  --monokai-blue: #57aeff; /* Brighter Azure Blue */
+  --monokai-cyan: #57aeff; /* Aliased to Blue */
 
   --brand-primary: var(--monokai-pink);
   --brand-secondary: var(--monokai-blue);
@@ -160,7 +160,7 @@ p, li, span, div, strong, b {
 .theme-cyberpunk .bg-emerald-50 {
   background-color: transparent !important;
   border: 2px solid var(--monokai-blue) !important;
-  box-shadow: 0 0 10px rgba(108, 153, 187, 0.2);
+  box-shadow: 0 0 10px rgba(87, 174, 255, 0.2);
   color: var(--monokai-blue) !important;
 }
 
@@ -180,7 +180,7 @@ p, li, span, div, strong, b {
 .theme-cyberpunk .bg-info-subtle {
   background-color: transparent !important;
   border: 2px solid var(--monokai-blue) !important;
-  box-shadow: 0 0 10px rgba(102, 217, 239, 0.2);
+  box-shadow: 0 0 10px rgba(87, 174, 255, 0.2);
   color: var(--monokai-blue) !important;
 }
 
@@ -357,7 +357,7 @@ h1, h2, h3, h4 {
 .theme-cyberpunk button:hover {
   background-color: var(--monokai-blue) !important;
   color: #000000 !important;
-  box-shadow: 0 0 20px rgba(102, 217, 239, 0.6) !important;
+  box-shadow: 0 0 20px rgba(87, 174, 255, 0.6) !important;
 }
 
 .theme-cyberpunk button[type="submit"] {
