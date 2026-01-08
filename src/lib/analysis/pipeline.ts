@@ -61,9 +61,9 @@ export async function runAnalysisPipeline(
     throw new Error('No casts found for this user');
   }
 
-  // Filter to last N days
+  // Filter to last N days and exclude replies (only analyze root casts)
   const cutoffDate = new Date(Date.now() - config.daysBack * 24 * 60 * 60 * 1000);
-  const recentCasts = casts.filter((c) => c.timestamp >= cutoffDate);
+  const recentCasts = casts.filter((c) => c.timestamp >= cutoffDate && c.parentHash === null);
 
   if (recentCasts.length === 0) {
     throw new Error(`No casts found in the last ${config.daysBack} days`);
