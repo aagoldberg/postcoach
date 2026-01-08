@@ -7,12 +7,14 @@ import type { CastAnalysis } from '@/types';
 interface FeedbackCardProps {
   analysis: CastAnalysis;
   type: 'top' | 'bottom';
+  username: string;
 }
 
-export function FeedbackCard({ analysis, type }: FeedbackCardProps) {
+export function FeedbackCard({ analysis, type, username }: FeedbackCardProps) {
   const { cast, metrics, content, feedback, theme } = analysis;
   const [isExpanded, setIsExpanded] = useState(false);
   const isTop = type === 'top';
+  const warpcastUrl = `https://warpcast.com/${username}/${cast.hash.slice(0, 10)}`;
 
   return (
     <Card 
@@ -32,9 +34,15 @@ export function FeedbackCard({ analysis, type }: FeedbackCardProps) {
         {/* Content Preview (Always Visible) */}
         <div className="mb-6 md:mb-8">
           <p className="text-stone-400 text-xs font-medium uppercase tracking-widest mb-3">Context</p>
-          <p className="text-stone-500 text-sm leading-relaxed line-clamp-2 font-medium italic border-l-2 border-stone-100 pl-4">
+          <a
+            href={warpcastUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="block text-stone-500 text-sm leading-relaxed line-clamp-2 font-medium italic border-l-2 border-stone-100 pl-4 hover:text-indigo-600 hover:border-indigo-300 transition-colors"
+          >
             &ldquo;{cast.text}&rdquo;
-          </p>
+          </a>
         </div>
 
         {/* Feedback - The Hero */}
@@ -137,9 +145,10 @@ interface FeedbackSectionProps {
   description: string;
   analyses: CastAnalysis[];
   type: 'top' | 'bottom';
+  username: string;
 }
 
-export function FeedbackSection({ title, description, analyses, type }: FeedbackSectionProps) {
+export function FeedbackSection({ title, description, analyses, type, username }: FeedbackSectionProps) {
   return (
     <section>
       <div className="mb-8">
@@ -150,7 +159,7 @@ export function FeedbackSection({ title, description, analyses, type }: Feedback
       </div>
       <div className="grid grid-cols-1 gap-8">
         {analyses.map((analysis) => (
-          <FeedbackCard key={analysis.cast.hash} analysis={analysis} type={type} />
+          <FeedbackCard key={analysis.cast.hash} analysis={analysis} type={type} username={username} />
         ))}
       </div>
     </section>

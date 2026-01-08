@@ -96,6 +96,7 @@ export function AnalysisResults({ result, onReset, onRefresh }: AnalysisResultsP
                 description="High-engagement patterns identified in recent activity"
                 analyses={topCasts}
                 type="top"
+                username={user.username}
               />
             )}
 
@@ -105,6 +106,7 @@ export function AnalysisResults({ result, onReset, onRefresh }: AnalysisResultsP
                 description="Content that underperformed relative to audience baseline"
                 analyses={bottomCasts}
                 type="bottom"
+                username={user.username}
               />
             )}
           </div>
